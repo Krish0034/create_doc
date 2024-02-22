@@ -11,7 +11,7 @@ import 'common_button.dart';
 import 'common_text_style.dart';
 
 class LostConnectionPage extends StatefulWidget {
-  const LostConnectionPage({Key? key}) : super(key: key);
+  const LostConnectionPage({super.key});
 
   @override
   State<LostConnectionPage> createState() => _LostConnectionPageState();

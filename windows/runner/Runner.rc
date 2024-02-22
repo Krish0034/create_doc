@@ -92,7 +92,7 @@ BEGIN
             VALUE "CompanyName", "com.app" "\0"
             VALUE "FileDescription", "create_project" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "create_project" "\0"
+            VALUE "InternalName", "com.app.create-doc" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.app. All rights reserved." "\0"
             VALUE "OriginalFilename", "create_project.exe" "\0"
             VALUE "ProductName", "create_project" "\0"

@@ -30,7 +30,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     Logger.data("Create User Function in bloc ${userData.toJson()}");
     Logger.data("Create User Function in bloc 1 $authType");
     final Either<ErrorData, UserData> result = await _signUpAccessServices.createUser(userData: userData, authType: authType);
-    Logger.data("Result of user result is: ${result}");
+    Logger.data("Result of user result is: $result");
     emit(
       result.fold(
         (ErrorData errorData) => state.copyWith(errorData: errorData),

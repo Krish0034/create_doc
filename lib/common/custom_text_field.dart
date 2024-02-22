@@ -37,9 +37,9 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType inputType;
   bool? obscureText;
-  Function validator;
-  Function? onChanged;
-  Function? onTap;
+  final Function validator;
+  Function(String)? onChanged;
+  void Function()? onTap;
   Widget? suffixIcon;
   Widget? prefixIcon;
   bool? readOnly;
@@ -60,7 +60,6 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int countText = 0;
     return FormField(builder: (state) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,11 +87,7 @@ class CustomTextField extends StatelessWidget {
             controller: controller,
             keyboardType: inputType,
             style: CommonTextStyle.normalStyle,
-            onTap: () {
-              if (onTap != null) {
-                onTap!();
-              }
-            },
+            onTap:onTap??() {},
             decoration: InputDecoration(
               counterText: '',
               prefixIcon: prefixIcon,
@@ -165,12 +160,7 @@ class CustomTextField extends StatelessWidget {
                   ]
                 : [],
             validator: (value) => validator(value),
-            onChanged: (value) {
-              if (onChanged != null) {
-                countText = value.length;
-                onChanged!(value);
-              }
-            },
+            onChanged:onChanged?? (value){},
           ),
 
         ],

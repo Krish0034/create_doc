@@ -13,14 +13,21 @@ import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 
 import '../auth/data/repositories/impl/signup_repository_impl.dart' as _i6;
+import '../auth/data/repositories/impl/user_name_repository_impl.dart' as _i10;
 import '../auth/data/repositories/signup_repository.dart' as _i5;
+import '../auth/data/repositories/user_name_repository.dart' as _i9;
 import '../auth/data/services/impl/signup_services_impl.dart' as _i8;
+import '../auth/data/services/impl/user_name_services_impl.dart' as _i12;
 import '../auth/data/services/signup_services.dart' as _i7;
-import '../auth/domain/impl/signup_access_services_impl.dart' as _i10;
-import '../auth/domain/signup_access_services.dart' as _i9;
-import '../auth/presentaion/bloc/signup_bloc/signup_bloc.dart' as _i11;
+import '../auth/data/services/user_name_services.dart' as _i11;
+import '../auth/domain/impl/signup_access_services_impl.dart' as _i14;
+import '../auth/domain/impl/user_name_access_services_impl.dart' as _i17;
+import '../auth/domain/signup_access_services.dart' as _i13;
+import '../auth/domain/user_name_access_services.dart' as _i16;
+import '../auth/presentaion/bloc/signup_bloc/signup_bloc.dart' as _i15;
+import '../auth/presentaion/bloc/user_name_bloc/user_name_bloc.dart' as _i18;
 import '../util/api_urls.dart' as _i4;
-import 'dio_setup.dart' as _i12;
+import 'dio_setup.dart' as _i19;
 
 // initializes the registration of main-scope dependencies inside of GetIt
 _i1.GetIt $initGetIt(
@@ -39,11 +46,18 @@ _i1.GetIt $initGetIt(
   gh.factory<_i5.SignUpRepository>(() => _i6.SignUpRepositoryImpl());
   gh.factory<_i7.SignUpServices>(
       () => _i8.SignUpServicesImpl(gh<_i5.SignUpRepository>()));
-  gh.factory<_i9.SignUpAccessServices>(
-      () => _i10.SignUpAccessServicesImpl(gh<_i7.SignUpServices>()));
-  gh.factory<_i11.SignUpBloc>(
-      () => _i11.SignUpBloc(gh<_i9.SignUpAccessServices>()));
+  gh.factory<_i9.UserNameRepository>(() => _i10.UserNameRepositoryImpl());
+  gh.factory<_i11.UserNameServices>(
+      () => _i12.UserNameServicesImpl(gh<_i9.UserNameRepository>()));
+  gh.factory<_i13.SignUpAccessServices>(
+      () => _i14.SignUpAccessServicesImpl(gh<_i7.SignUpServices>()));
+  gh.factory<_i15.SignUpBloc>(
+      () => _i15.SignUpBloc(gh<_i13.SignUpAccessServices>()));
+  gh.factory<_i16.UserNameAccessServices>(
+      () => _i17.UserNameAccessServicesImpl(gh<_i11.UserNameServices>()));
+  gh.factory<_i18.UserNameBloc>(
+      () => _i18.UserNameBloc(gh<_i16.UserNameAccessServices>()));
   return getIt;
 }
 
-class _$AppModule extends _i12.AppModule {}
+class _$AppModule extends _i19.AppModule {}

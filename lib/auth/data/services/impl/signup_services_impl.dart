@@ -3,10 +3,8 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
-import '../../../../baseResponse/base_response.dart';
 import '../../../../core/error_data.dart';
 import '../../../../util/auth_type.dart';
-import '../../../../util/common_dialog.dart';
 import '../../../../util/logger.dart';
 import '../../../model/user_data.dart';
 import '../../repositories/signup_repository.dart';
@@ -53,10 +51,10 @@ class SignUpServicesImpl extends SignUpServices {
       Logger.data("Firebase Auth Exception is: ${e.code}");
       return left(ErrorData.httpUnknownError(e.code));
     } on DioError catch (exception) {
-      Logger.data("DioError Exception is: ${exception}");
+      Logger.data("DioError Exception is: $exception");
       return left(handleDioError(exception));
     } catch (e) {
-      Logger.data("Exception is: ${e}");
+      Logger.data("Exception is: $e");
       String? error=e.toString();
       return left(ErrorData.httpUnknownError(error));
     }
@@ -73,4 +71,5 @@ class SignUpServicesImpl extends SignUpServices {
     }
     return ErrorData.httpUnknownError(exception.message ?? "");
   }
+
 }

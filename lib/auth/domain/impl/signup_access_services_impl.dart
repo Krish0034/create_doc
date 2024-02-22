@@ -20,7 +20,8 @@ class SignUpAccessServicesImpl extends SignUpAccessServices
   Future<Either<ErrorData, UserData>> createUser({required UserData userData, required AuthType authType}) async {
     Logger.data("Create User Function in Access service ${userData.toJson()}");
     Logger.data("Create User Function in Access service 1 $authType");
-    return _signUpServices.createUser(userData: userData, authType: authType);
+    return await _signUpServices.createUser(userData: userData, authType: authType);
   }
+
 
 }

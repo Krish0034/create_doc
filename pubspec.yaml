@@ -8,10 +8,11 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 
 #  Platform  Firebase App Id
-#  web       1:223908772884:web:e8100825d901c606983b01
-#  android   1:223908772884:android:f705f0d675ab9613983b01
-#  ios       1:223908772884:ios:840dbe05839c3d3d983b01
-#  macos     1:223908772884:ios:6f529ec390e877f6983b01
+#  web       1:223908772884:web:4b48419ce202d983983b01
+#  android   1:223908772884:android:0d7df6d10377f462983b01
+#  ios       1:223908772884:ios:e573b9b64d4ad62c983b01
+#  macos     1:223908772884:ios:4a3c6fdf3faa6180983b01
+
 
 
 #Alias name: androiddebugkey
@@ -63,6 +64,8 @@ dependencies:
   firebase_pagination: ^3.1.0
   cloud_firestore: ^4.15.4
   flutter_local_notifications: ^16.3.2
+  flutter_styled_toast: ^2.2.1
+
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +77,7 @@ dev_dependencies:
   build_runner: ^2.4.8
   freezed: ^2.4.7
   mockito: ^5.4.4
+
 
 flutter:
   uses-material-design: true

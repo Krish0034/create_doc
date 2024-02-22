@@ -6,7 +6,7 @@ import '../../../util/common_text_style.dart';
 
 
 class TermAndCondition extends StatelessWidget {
-  const TermAndCondition({Key? key}) : super(key: key);
+  const TermAndCondition({super.key});
 
   @override
   Widget build(BuildContext context) {

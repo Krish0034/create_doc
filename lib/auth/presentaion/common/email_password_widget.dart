@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 import '../../../common/custom_text_field.dart';
@@ -51,7 +52,7 @@ class _EmailPasswordWidgetState extends State<EmailPasswordWidget> {
             }
           },
         ),
-        const Gap(20),
+        Gap(20.h),
         CustomTextField(
           label: AppString.passwordHintText,
           controller: widget.passwordController,
@@ -85,7 +86,7 @@ class _EmailPasswordWidgetState extends State<EmailPasswordWidget> {
               setState(() {
                 strengthPasswordVisibility = false;
               });
-              return strengthPasswordVisibility;
+              return strengthPasswordVisibility??'';
             } else {
               setState(() {
                 strengthPasswordVisibility = true;
@@ -106,7 +107,7 @@ class _EmailPasswordWidgetState extends State<EmailPasswordWidget> {
           visible: strengthPasswordVisibility,
           child: Column(
             children: [
-              const Gap(8),
+              Gap(8.h),
               ClipRRect(
                 borderRadius: BorderRadius.circular(4),
                 child: LinearProgressIndicator(

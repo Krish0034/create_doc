@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import '../../../util/app_colors.dart';
 import '../../../util/app_images.dart';
@@ -26,8 +27,8 @@ class _AnotherSocialAuthState extends State<AnotherSocialAuth> {
                   color: AppColors.backButtonColor.withOpacity(0.4),
                 ),
               ),
-              const SizedBox(
-                width: 20,
+              SizedBox(
+                width: 20.w,
               ),
               Text(
                 AppString.orContinueWith,
@@ -37,8 +38,8 @@ class _AnotherSocialAuthState extends State<AnotherSocialAuth> {
                   fontSize: 15,
                 ),
               ),
-              const SizedBox(
-                width: 20,
+              SizedBox(
+                width: 20.w,
               ),
               Expanded(
                 child: Divider(

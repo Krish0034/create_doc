@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   @override
   void initState() {
     Connection.connectivity().then((value){
-      Logger.data("Internet connectivity is ${value}");
+      Logger.data("Internet connectivity is $value");
       SheredPreferences.setConnection(connectivity: value);
     });
     controller = AnimationController(

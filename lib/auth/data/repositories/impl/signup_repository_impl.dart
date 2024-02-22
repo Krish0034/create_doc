@@ -44,4 +44,5 @@ class SignUpRepositoryImpl extends SignUpRepository {
     Logger.data("Final Return User Data is : ${userData.toJson()}");
     return userData;
   }
+
 }

@@ -40,7 +40,7 @@ class SignUpPageTabState extends State<SignUpPageTab>
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text(AppString.signUpPageTitle),
+        title: const Center(child: Text(AppString.signUpPageTitle)),
         backgroundColor: AppColors.whiteColor,
       ),
       body: BlocProvider<SignUpBloc>(
@@ -49,59 +49,57 @@ class SignUpPageTabState extends State<SignUpPageTab>
           padding: EdgeInsets.only(left: 15.w, right: 15.w,),
           child: Column(
             children: [
-              Material(
-                color: AppColors.whiteColor,
-                surfaceTintColor: AppColors.whiteColor,
-                child: TabBar(
-                  overlayColor: MaterialStateColor.resolveWith((
-                      Set<MaterialState> states) {
-                    return AppColors.transparent;
-                  }),
-                  splashFactory: NoSplash.splashFactory,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  dividerColor: AppColors.transparent,
-                  controller: _tabController,
-                  indicator: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: tabIndicatorGradiant,
-                      stops: const [0.0, 0.47, 1.0],
-                    ),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(15),
+              const Gap(20),
+              TabBar(
+                overlayColor: MaterialStateColor.resolveWith((
+                    Set<MaterialState> states) {
+                  return AppColors.transparent;
+                }),
+                splashFactory: NoSplash.splashFactory,
+                indicatorSize: TabBarIndicatorSize.tab,
+                dividerColor: AppColors.transparent,
+                controller: _tabController,
+                indicator: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: tabIndicatorGradiant,
+                    stops: const [0.0, 0.47, 1.0],
+                  ),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(15),
+                  ),
+                ),
+                labelColor: AppColors.backButtonColor,
+                labelStyle: CommonTextStyle.normalStyle.copyWith(
+                    color: AppColors.backButtonColor),
+                unselectedLabelStyle: CommonTextStyle.normalStyle.copyWith(
+                    color: AppColors.backButtonColor.withOpacity(0.5)),
+                unselectedLabelColor: Colors.grey,
+                tabs: [
+                  Container(
+                    constraints: const BoxConstraints(minWidth: 250),
+                    child: const Tab(
+                      child: Center(
+                        child: Text(
+                          AppString.emailHintText,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
                     ),
                   ),
-                  labelColor: AppColors.backButtonColor,
-                  labelStyle: CommonTextStyle.normalStyle.copyWith(
-                      color: AppColors.backButtonColor),
-                  unselectedLabelStyle: CommonTextStyle.normalStyle.copyWith(
-                      color: AppColors.backButtonColor.withOpacity(0.5)),
-                  tabs: [
-                    Container(
-                      constraints: const BoxConstraints(minWidth: 250),
-                      child: const Tab(
-                        child: Center(
-                          child: Text(
-                            AppString.emailHintText,
-                            textAlign: TextAlign.center,
-                          ),
+                  Container(
+                    constraints: const BoxConstraints(minWidth: 250),
+                    child: const Tab(
+                      child: Center(
+                        child: Text(
+                          AppString.phoneHintText,
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
-                    Container(
-                      constraints: const BoxConstraints(minWidth: 250),
-                      child: const Tab(
-                        child: Center(
-                          child: Text(
-                            AppString.phoneHintText,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               const Gap(20),
               Expanded(

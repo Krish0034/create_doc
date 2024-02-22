@@ -1,5 +1,7 @@
 import 'package:create_doc/auth/presentaion/signup/widget/user_details_fields.dart';
+import 'package:create_doc/util/auth_type.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import '../../../../util/app_colors.dart';
 import '../../../../util/app_strings.dart';
@@ -32,27 +34,28 @@ class _SignUpPhoneTabViewState extends State<SignUpPhoneTabView> {
           child: Column(
             children: [
               UserDetailsFields(
+                authType: AuthType.PHONE,
                 nameController: nameController,
                 userNameController: userNameController,
               ),
-              const Gap(20),
+              Gap(20.h),
               PhoneTextField(
                 phoneController:phoneController,
               ),
-              const Gap(05),
+              Gap(05.h),
               const TermAndCondition(),
-              const Gap(40),
+              Gap(40.h),
               const AnotherSocialAuth(),
-              const Gap(40),
-              const HaveAlreadyAccount()
+              Gap(40.h),
+              const HaveAlreadyAccount(),
+              Gap(150.h),
             ],
           ),
         ),
-        Container(
-          alignment: Alignment.bottomCenter,
-          padding: const EdgeInsets.only(bottom: 40),
-          child: Positioned(
-            bottom: 0,
+        Padding(
+          padding: EdgeInsets.only(bottom: 35.h),
+          child: Align(
+            alignment: Alignment.bottomCenter,
             child: CommonButton(
               onPressed: () {
 
@@ -65,7 +68,7 @@ class _SignUpPhoneTabViewState extends State<SignUpPhoneTabView> {
               text: AppString.continueText,
             ),
           ),
-        ),
+        )
       ],
     );
   }

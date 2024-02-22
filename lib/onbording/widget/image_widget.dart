@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../util/app_images.dart';
 
 class ImageWidget extends StatelessWidget {
   final String? imageUlr;
   final double? width;
   final double? height;
 
-  const ImageWidget({Key? key, this.width, this.height,this.imageUlr}) : super(key: key);
+  const ImageWidget({super.key, this.width, this.height,this.imageUlr});
 
   @override
   Widget build(BuildContext context) {

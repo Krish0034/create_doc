@@ -55,7 +55,7 @@ class _LoginPhoneTabViewState extends State<LoginPhoneTabView> {
               height: 50,
               borderColor: AppColors.backButtonColor.withOpacity(0.5),
               btnColor: AppColors.redButtonColor,
-              textStyle: CommonTextStyle.normalStyle.copyWith(),
+              textStyle: CommonTextStyle.normalStyle.copyWith(color: AppColors.whiteColor),
               text: AppString.continueText,
             ),
           ),

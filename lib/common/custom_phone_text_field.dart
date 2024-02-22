@@ -43,8 +43,8 @@ class CustomPhoneTextField extends StatelessWidget {
     this.maxLines,
     this.label,
     this.suffixText,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +104,7 @@ class CustomPhoneTextField extends StatelessWidget {
                   }
                 },
                 decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 8.0),
                   counter: const SizedBox(),
                   prefixText: suffixText,
                   prefixStyle: CommonTextStyle.normalStyle.copyWith(
