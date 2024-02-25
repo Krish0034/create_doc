@@ -5,4 +5,5 @@ class RoutingString
   static const isInternet="isInternet";
   static const walkThrough="walkthrough";
   static const signupRoute="signupRoute";
+  static const locationPage="locationPage";
 }

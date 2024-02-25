@@ -10,6 +10,7 @@ class SignUpState with _$SignUpState
 
   factory SignUpState.initial() =>
       SignUpState(userData: none());
+
 }
 
 

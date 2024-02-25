@@ -1,8 +1,16 @@
+import 'dart:async';
+
 import 'package:create_doc/auth/presentaion/signup/widget/user_details_fields.dart';
+import 'package:create_doc/util/common_dialog.dart';
+import 'package:create_doc/util/shered_preferences.dart';
+import 'package:create_doc/util/utility_function.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import '../../../../core/error_data.dart';
 import '../../../../di/di_setup.dart';
 import '../../../../util/app_colors.dart';
 import '../../../../util/app_strings.dart';
@@ -37,15 +45,7 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
   late bool strengthPasswordVisibility = false;
   late bool obscure = true;
   late SignUpBloc _signupBloc;
-  late UserNameBloc _userNameBloc;
-  late bool userNameExist;
 
-  @override
-  void initState() {
-    _signupBloc = getIt<SignUpBloc>();
-    _userNameBloc = getIt<UserNameBloc>();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,12 +53,62 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
         bloc: _signupBloc,
         listener: (BuildContext context, state) {
           if (state is SignUpState) {
+            UserData userData1 = state.userData.getOrElse(() => UserData());
+            ErrorData? errorData = state.errorData;
             if (!state.userData.isNone()) {
-              Navigator.push(
+              Logger.data("after creating user is: ${userData1.toJson()}");
+              CommonDialog.commonDialogOk(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const SearchLocationPage(),
-                  ));
+                  message:AppString.sendEmailDesc,
+                  email:userData1.email,
+                  title: AppString.verifyYourEmail,
+                  buttonText: AppString.sendEmail,
+                  height: 350.h,
+                  width: 600.w,
+                  buttonWidth: 200.w,
+                  onPressed: () async
+                  {
+                    Logger.data("Email verification button tap");
+                    await FirebaseAuth.instance.currentUser?.sendEmailVerification();
+                    Timer? timer;
+                    timer = Timer.periodic(
+                      const Duration(seconds: 2), (_){
+                      bool isEmailVerified= UtilFunction().checkEmailVerification();
+                      if(isEmailVerified)
+                      {
+                        Logger.data("User Email is verified");
+                        timer?.cancel();
+                        SheredPreferences.setAccessToken(accessToken: userData1.uid,);
+                        SheredPreferences.setUserEmailVerify(userEmailVerify: true);
+                        Logger.data("User Email are verified");
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const SearchLocationPage(),),);
+                      }
+                      else
+                      {
+                        Logger.data("User Email are not verified");
+                      }
+                      }
+                    );
+
+                  }
+              );
+
+            }
+            else{
+              if (errorData is HttpUnknownErrorData) {
+                String errorMessage = errorData.message;
+                if(errorMessage=='email-already-in-use') {
+                errorMessage = "Email already In Use.";
+              }
+              CommonDialog.commonDialogOk(
+                    context,
+                    message: errorMessage,
+                    title: AppString.alertText,
+                    buttonText: AppString.okButtonText,
+                    height: 250.h,
+                    width: 600.w,
+                );
+              }
             }
           }
         },
@@ -94,7 +144,13 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
                 child: CommonButton(
                   onPressed: () {
                     if (_validateFields()) {
+                      String? fcmToken;
+                      FirebaseMessaging.instance.getToken().then((token) {
+                        Logger.data("token is $token");
+                        fcmToken = token??'';
+                      });
                       _signupBloc.add(SignUpEvent.createUser(
+
                         userData: UserData(
                           fullName: nameController.text.toString(),
                           username: userNameController.text.toString(),
@@ -110,7 +166,7 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
                           usageReminderDate:
                               DateTime.now().millisecondsSinceEpoch,
                           image: '',
-                          fcm: '',
+                          fcm: fcmToken,
                           status: true,
                         ),
                         authType: AuthType.EMAIL,
@@ -129,7 +185,14 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
               ),
             ),
           ],
-        ));
+        ),
+    );
+  }
+
+  @override
+  void initState() {
+    _signupBloc = getIt<SignUpBloc>();
+    super.initState();
   }
 
   bool _validateFields() {
@@ -143,4 +206,5 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
       return false;
     }
   }
+
 }

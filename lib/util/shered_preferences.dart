@@ -22,10 +22,11 @@ class SheredPreferences
   static const _iosToken = 'iosToken';
   static const _deviceToken = 'deviceToken';
   static const _userData = 'userData';
+  static const _userEmailVerify = 'userEmailVerify';
 
 
   /// set data
-  static Future setCurrentLocation({required String? accessToken}) async {
+  static Future setAccessToken({required String? accessToken}) async {
     await _preferences.setString(_accessToken, accessToken ?? "");
   }
 
@@ -53,6 +54,9 @@ class SheredPreferences
   static Future setOnBoardingPass({required bool? onBoardingPass}) async{
     await _preferences.setBool(_onBoardingPass, onBoardingPass??false);
   }
+  static Future setUserEmailVerify({required bool? userEmailVerify}) async{
+    await _preferences.setBool(_userEmailVerify, userEmailVerify??false);
+  }
   static Future<void> setUserData({required UserData? userData}) async {
     if (userData != null) {
       final jsonString = json.encode(userData.toJson());
@@ -63,7 +67,7 @@ class SheredPreferences
 
   /// get data
 
-  static String get accessToken => _preferences.getString(_accessToken) ?? "";
+  static String get getAccessToken => _preferences.getString(_accessToken) ?? "";
   static String get refreshToken => _preferences.getString(_refreshToken) ?? "";
   static String get email => _preferences.getString(_userEmail) ?? "";
   static String get uuid => _preferences.getString(_uuid) ?? "";
@@ -72,6 +76,7 @@ class SheredPreferences
   static String get deviceToken => _preferences.getString(_deviceToken) ?? "";
   static bool get getConnection => _preferences.getBool(_connectivity) ?? false;
   static bool get getOnBoardingPass=> _preferences.getBool(_onBoardingPass) ?? false;
+  static bool get getUserEmailVerify=> _preferences.getBool(_userEmailVerify) ?? false;
   static UserData? getUserData() {
     final jsonString = _preferences.getString(_userData);
     if (jsonString != null && jsonString.isNotEmpty) {

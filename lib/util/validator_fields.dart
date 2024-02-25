@@ -25,6 +25,11 @@ class ValidatorFields {
 
   }
 
+  bool isUsername(String s) {
+    RegExp regex = RegExp(r'^[a-zA-Z0-9][a-zA-Z0-9_.]+[a-zA-Z0-9]$');
+    return regex.hasMatch(s);
+  }
+
   static bool isOnlyEmojis(String text) {
     // find all emojis
     final emojis = REGEX_EMOJI.allMatches(text);

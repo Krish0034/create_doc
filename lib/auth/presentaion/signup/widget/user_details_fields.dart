@@ -1,5 +1,6 @@
 import 'package:create_doc/util/logger.dart';
 import 'package:create_doc/util/usern_name_generator.dart';
+import 'package:create_doc/util/validator_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,7 +30,6 @@ class _UserDetailsFieldsState extends State<UserDetailsFields> {
 
   late List<String> generatedUserNames=[];
   late UserNameBloc _userNameBloc;
-  late bool userNameExist=false;
   @override
   void initState() {
     _userNameBloc = getIt<UserNameBloc>();
@@ -41,17 +41,13 @@ class _UserDetailsFieldsState extends State<UserDetailsFields> {
     return BlocBuilder<UserNameBloc, UserNameState>(
       bloc: _userNameBloc,
       builder: (context, state) {
-        generatedUserNames.clear();
-        if (state.userName) {
-          userNameExist = state.userName;
-          Logger.data("user name Exist is ${userNameExist}");
-          if (userNameExist && generatedUserNames.isEmpty) {
-            generatedUserNames = UserNameGenerator.generateList(widget.userNameController.text, length: 10);
-          }
-          else{
-              generatedUserNames.clear();
-          }
+        final userNameExist = state.userName;
+        if (userNameExist && generatedUserNames.isEmpty && widget.userNameController.text.isNotEmpty) {
+          generatedUserNames = UserNameGenerator.generateList(widget.userNameController.text, length: 7);
+        } else if (!userNameExist) {
+          generatedUserNames.clear();
         }
+
         return Column(
           children: [
             CustomTextField(
@@ -75,35 +71,43 @@ class _UserDetailsFieldsState extends State<UserDetailsFields> {
               inputType: TextInputType.text,
               onChanged: (value) {
                 generatedUserNames.clear();
+
               },
               validator: (value) {
                 if (value!.isEmpty || value == null) {
                   generatedUserNames.clear();
                   return AppString.userNameValidatorText;
-
                 } else {
-                  if (value.length >= 3 && generatedUserNames.isEmpty) {
+                  if (ValidatorFields().isUsername(value)) {
                     _userNameBloc.add(
                       UserNameEvent.userExist(
                         userName: widget.userNameController.text,
                         authType: widget.authType,
                       ),
                     );
+                  } else {
+                    return AppString.userNameValidatorText2;
                   }
-
                   return null;
                 }
               },
             ),
-            if (userNameExist && generatedUserNames.isNotEmpty)
+            if (userNameExist)
               Align(
                 alignment: Alignment.topLeft,
                 child: Wrap(
                   spacing: 5.w,
+                  alignment: WrapAlignment.start,
                   children: generatedUserNames.map(
                         (e) => GestureDetector(
                       onTap: () {
-                        widget.userNameController.text;
+                        widget.userNameController.text = e;
+                        _userNameBloc.add(
+                          UserNameEvent.userExist(
+                            userName: e,
+                            authType: widget.authType,
+                          ),
+                        );
                         generatedUserNames.clear();
                       },
                       child: Theme(
@@ -138,5 +142,8 @@ class _UserDetailsFieldsState extends State<UserDetailsFields> {
       },
     );
   }
+
+
+
 
 }

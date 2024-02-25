@@ -33,7 +33,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     Logger.data("Result of user result is: $result");
     emit(
       result.fold(
-        (ErrorData errorData) => state.copyWith(errorData: errorData),
+        (ErrorData errorData) => state.copyWith(errorData: errorData,userData: none()),
         (UserData userData) => state.copyWith(userData: optionOf(userData)),
       ),
     );

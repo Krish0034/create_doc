@@ -20,7 +20,8 @@ class SignUpServicesImpl extends SignUpServices {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   @override
-  Future<Either<ErrorData, UserData>> createUser({required UserData userData, required AuthType authType}) async {
+  Future<Either<ErrorData, UserData>> createUser({required UserData userData, required AuthType authType}) async
+  {
     UserData? userDataResponse;
     Logger.data("Create User Function in service ${userData.toJson()}");
     Logger.data("Create User Function in service 1 $authType");

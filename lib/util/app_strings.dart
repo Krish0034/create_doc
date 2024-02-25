@@ -32,6 +32,7 @@ class AppString
   static const emailValidatorText1 = 'Enter valid email.';
   static const passwordValidatorText = 'Enter valid password.';
   static const userNameValidatorText = 'Username cannot be blank';
+  static const userNameValidatorText2 = 'Please enter valid username';
   static const termCondition1 = 'By Continue, you agree to our ';
   static const termCondition = 'Terms and conditions';
   static const privacyPolicy = 'Privacy policy.';
@@ -40,6 +41,8 @@ class AppString
   static const alreadyAccount = 'Already have an account? ';
   static const loginNow = 'Login Now';
   static const signUpNow = 'SignUp Now';
+  static const sendEmailDesc = "Please click the button below to receive the link on your email address. Once you've received the email, click the link provided to verify your email address."
+  ;
 
   /// On Boarding page
 
@@ -62,6 +65,13 @@ class AppString
   static const String passwordStrength7 = 'Must contain a upper letter and number ';
   static const String passwordStrength8 = 'Must contain number and special symbol';
   static const String passwordStrength9 = 'Must contain upper letter,number and special symbol';
+
+  ///
+
+  static const String okButtonText = "OK";
+  static const String alertText = "Alert";
+  static const String sendEmail = "Send Email";
+  static const String verifyYourEmail = "Verify your email";
 
 
 }

@@ -52,9 +52,13 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   {
 
     if(SheredPreferences.getConnection){
-      if (SheredPreferences.accessToken.isNotEmpty)
+      if (SheredPreferences.getAccessToken.isNotEmpty)
       {
         Logger.data("this section for home page");
+        if(SheredPreferences.getUserEmailVerify)
+        {
+          return RoutingString.locationPage;
+        }
       }
       else if(SheredPreferences.signupRoute.isNotEmpty)
       {
