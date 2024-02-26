@@ -45,7 +45,11 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
   late bool strengthPasswordVisibility = false;
   late bool obscure = true;
   late SignUpBloc _signupBloc;
-
+  @override
+  void initState() {
+    _signupBloc = getIt<SignUpBloc>();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,13 +192,6 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
         ),
     );
   }
-
-  @override
-  void initState() {
-    _signupBloc = getIt<SignUpBloc>();
-    super.initState();
-  }
-
   bool _validateFields() {
     if (nameController.text.isNotEmpty &&
         userNameController.text.isNotEmpty &&

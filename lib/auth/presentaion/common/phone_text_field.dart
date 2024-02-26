@@ -8,7 +8,8 @@ import '../../../util/logger.dart';
 
 class PhoneTextField extends StatefulWidget {
   final TextEditingController phoneController;
-  const PhoneTextField({super.key, required this.phoneController});
+  final Function? onChange;
+  const PhoneTextField({super.key, required this.phoneController, this.onChange});
 
   @override
   State<PhoneTextField> createState() => _PhoneTextFieldState();
@@ -30,8 +31,8 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
         }
         
       },
-      onChanged: (PhoneNumber value) {
-        Logger.data("phone number is ${value.completeNumber}");
+      onChanged:widget.onChange ??(PhoneNumber value) {
+        // Logger.data("phone number is ${value.completeNumber}");
       },
     );
   }

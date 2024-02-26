@@ -47,7 +47,6 @@ class SignUpServicesImpl extends SignUpServices {
       else{
         return right(userDataResponse??UserData());
       }
-      return right(userDataResponse??UserData());
     } on FirebaseAuthException catch (e) {
       Logger.data("Firebase Auth Exception is: ${e.code}");
       return left(ErrorData.httpUnknownError(e.code));
