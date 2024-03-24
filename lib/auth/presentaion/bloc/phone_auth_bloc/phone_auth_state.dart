@@ -4,10 +4,9 @@ part of 'phone_auth_bloc.dart';
 class PhoneAuthState with _$PhoneAuthState {
 
   factory PhoneAuthState({
-    Option<UserData>? userData,
     ErrorData? errorData,
-    Option<CodeModelResponse>? codeModelResponse,
+    required Option<CodeModelResponse> codeModelResponse,
   }) = _PhoneAuthState;
 
-  factory PhoneAuthState.initial() => PhoneAuthState(userData: none(),codeModelResponse: none());
+  factory PhoneAuthState.initial() => PhoneAuthState(codeModelResponse: none());
 }

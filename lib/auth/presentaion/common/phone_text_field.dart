@@ -32,7 +32,7 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
         
       },
       onChanged:widget.onChange ??(PhoneNumber value) {
-        // Logger.data("phone number is ${value.completeNumber}");
+        Logger.data("phone number is ${value.completeNumber}");
       },
     );
   }

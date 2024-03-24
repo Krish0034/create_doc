@@ -1,9 +1,10 @@
-import 'package:create_doc/util/logger.dart';
 import 'package:create_doc/util/usern_name_generator.dart';
 import 'package:create_doc/util/validator_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+
 import '../../../../common/custom_text_field.dart';
 import '../../../../di/di_setup.dart';
 import '../../../../util/app_colors.dart';
@@ -63,7 +64,7 @@ class _UserDetailsFieldsState extends State<UserDetailsFields> {
                 }
               },
             ),
-            SizedBox(height: 25.h),
+            Gap(25.h),
             CustomTextField(
               label: AppString.userNameHintText,
               controller: widget.userNameController,
@@ -71,7 +72,6 @@ class _UserDetailsFieldsState extends State<UserDetailsFields> {
               inputType: TextInputType.text,
               onChanged: (value) {
                 generatedUserNames.clear();
-
               },
               validator: (value) {
                 if (value!.isEmpty || value == null) {

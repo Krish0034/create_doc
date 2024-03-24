@@ -13,8 +13,7 @@ class SignUpRepositoryImpl extends SignUpRepository {
   final FireBaseStorage _fireBaseStorage = FireBaseStorage();
 
   @override
-  Future<UserData> createUser(
-      {required UserData userData, required AuthType authType}) async {
+  Future<UserData> createUser({required UserData userData, required AuthType authType}) async {
     Logger.data("Create User Function in repository ${userData.toJson()}");
     Logger.data("Create User Function in repository 1 $authType");
     try {

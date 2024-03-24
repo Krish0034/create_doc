@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:create_doc/auth/presentaion/signup/widget/user_details_fields.dart';
 import 'package:create_doc/util/common_dialog.dart';
+import 'package:create_doc/util/extences.dart';
 import 'package:create_doc/util/shered_preferences.dart';
 import 'package:create_doc/util/utility_function.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import '../../../../core/error_data.dart';
+import '../../../../dashbord/presentaion/dash_bord_page.dart';
 import '../../../../di/di_setup.dart';
 import '../../../../util/app_colors.dart';
 import '../../../../util/app_strings.dart';
@@ -21,7 +23,6 @@ import '../../../../util/logger.dart';
 import '../../../../util/validator_fields.dart';
 import '../../../model/user_data.dart';
 import '../../bloc/signup_bloc/signup_bloc.dart';
-import '../../bloc/user_name_bloc/user_name_bloc.dart';
 import '../../common/anothe_social_auth.dart';
 import '../../common/email_password_widget.dart';
 import '../../common/have_already_account.dart';
@@ -61,6 +62,10 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
             ErrorData? errorData = state.errorData;
             if (!state.userData.isNone()) {
               Logger.data("after creating user is: ${userData1.toJson()}");
+              int? timestamp = userData1.createdDate;
+              DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp??0);
+              Logger.data('Formatted Date: ${dateTime.formattedDate()}');
+              Logger.data('Formatted Time: ${dateTime.formattedTime()}');
               CommonDialog.commonDialogOk(
                   context,
                   message:AppString.sendEmailDesc,
@@ -82,10 +87,11 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
                       {
                         Logger.data("User Email is verified");
                         timer?.cancel();
-                        SheredPreferences.setAccessToken(accessToken: userData1.uid,);
-                        SheredPreferences.setUserEmailVerify(userEmailVerify: true);
+                        PreferencesShared.setAccessToken(accessToken: userData1.uid,);
+                        PreferencesShared.setUserEmailVerify(userEmailVerify: true);
                         Logger.data("User Email are verified");
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const SearchLocationPage(),),);
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const DashBordPage(),),);
+                        // Navigator.push(context, MaterialPageRoute(builder: (context) => const SearchLocationPage(),),);
                       }
                       else
                       {
@@ -93,17 +99,12 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
                       }
                       }
                     );
-
                   }
               );
-
             }
             else{
               if (errorData is HttpUnknownErrorData) {
-                String errorMessage = errorData.message;
-                if(errorMessage=='email-already-in-use') {
-                errorMessage = "Email already In Use.";
-              }
+                String errorMessage =UtilFunction().formatErrorMessage(errorData.message);
               CommonDialog.commonDialogOk(
                     context,
                     message: errorMessage,
@@ -152,9 +153,8 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
                       FirebaseMessaging.instance.getToken().then((token) {
                         Logger.data("token is $token");
                         fcmToken = token??'';
-                      });
+                      },);
                       _signupBloc.add(SignUpEvent.createUser(
-
                         userData: UserData(
                           fullName: nameController.text.toString(),
                           username: userNameController.text.toString(),
@@ -174,7 +174,8 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
                           status: true,
                         ),
                         authType: AuthType.EMAIL,
-                      ));
+                      ),
+                      );
                     } else {
                       Logger.data("fields are not validate fully");
                     }
@@ -183,7 +184,7 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
                   height: 50,
                   borderColor: AppColors.backButtonColor.withOpacity(0.5),
                   btnColor: AppColors.redButtonColor,
-                  textStyle: CommonTextStyle.normalStyle.copyWith(),
+                  textStyle: CommonTextStyle.normalStyle.copyWith(color: AppColors.whiteColor),
                   text: AppString.continueText,
                 ),
               ),

@@ -40,73 +40,79 @@ class SignUpPageTabState extends State<SignUpPageTab>
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Center(child: Text(AppString.signUpPageTitle)),
+        title: const Center(
+          child: Text(
+            AppString.signUpPageTitle,
+          ),
+        ),
         backgroundColor: AppColors.whiteColor,
       ),
       body: BlocProvider<SignUpBloc>(
         create: (context) => _signupBloc,
         child: Padding(
-          padding: EdgeInsets.only(left: 15.w, right: 15.w,),
+          padding: EdgeInsets.only(
+            left: 15.w,
+            right: 15.w,
+          ),
           child: Column(
             children: [
               const Gap(20),
-              TabBar(
-                overlayColor: MaterialStateColor.resolveWith((
-                    Set<MaterialState> states) {
-                  return AppColors.transparent;
-                }),
-                splashFactory: NoSplash.splashFactory,
-                indicatorSize: TabBarIndicatorSize.tab,
-                dividerColor: AppColors.transparent,
-                controller: _tabController,
-                indicator: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: tabIndicatorGradiant,
-                    stops: const [0.0, 0.47, 1.0],
-                  ),
-                  borderRadius: const BorderRadius.all(
+              Container(
+                decoration: const BoxDecoration(
+                  color: Color(0XFFE0E0E0),
+                  borderRadius: BorderRadius.all(
                     Radius.circular(15),
                   ),
                 ),
-                labelColor: AppColors.backButtonColor,
-                labelStyle: CommonTextStyle.normalStyle.copyWith(
-                    color: AppColors.backButtonColor),
-                unselectedLabelStyle: CommonTextStyle.normalStyle.copyWith(
-                    color: AppColors.backButtonColor.withOpacity(0.5)),
-                unselectedLabelColor: Colors.grey,
-                tabs: [
-                  Container(
-                    constraints: const BoxConstraints(minWidth: 250),
-                    child: const Tab(
-                      child: Center(
-                        child: Text(
-                          AppString.emailHintText,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+                child: TabBar(
+                  overlayColor: MaterialStateColor.resolveWith(
+                      (Set<MaterialState> states) {
+                    return AppColors.transparent;
+                  }),
+                  splashFactory: NoSplash.splashFactory,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  dividerColor: AppColors.transparent,
+                  controller: _tabController,
+                  indicator: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: tabIndicatorGradiant,
+                      stops: const [0.0, 0.47, 1.0],
+                    ),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(15),
                     ),
                   ),
-                  Container(
-                    constraints: const BoxConstraints(minWidth: 250),
-                    child: const Tab(
-                      child: Center(
-                        child: Text(
-                          AppString.phoneHintText,
-                          textAlign: TextAlign.center,
-                        ),
+                  labelColor: AppColors.backButtonColor,
+                  labelStyle: CommonTextStyle.normalStyle.copyWith(
+                    color: AppColors.backButtonColor,
+                  ),
+                  unselectedLabelStyle: CommonTextStyle.normalStyle.copyWith(
+                    color: AppColors.backButtonColor.withOpacity(0.5),
+                  ),
+                  unselectedLabelColor: Colors.grey,
+                  tabs: const [
+                    Tab(
+                      child: Text(
+                        AppString.emailHintText,
+                        textAlign: TextAlign.center,
                       ),
                     ),
-                  ),
-                ],
+                    Tab(
+                      child: Text(
+                        AppString.phoneHintText,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const Gap(20),
               Expanded(
                 child: TabBarView(
                   controller: _tabController,
-                  children: const [
-                    SignUpEmailTabViews(), SignUpPhoneTabView()],
+                  children: const [SignUpEmailTabViews(), SignUpPhoneTabView()],
                 ),
               ),
             ],

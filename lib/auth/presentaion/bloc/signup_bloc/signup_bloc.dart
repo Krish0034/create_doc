@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:create_doc/auth/model/phone_auth_provider_model.dart';
 import 'package:create_doc/core/error_data.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
@@ -20,16 +21,19 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc(this._signUpAccessServices) : super(SignUpState.initial()) {
     on<SignUpEvent>((SignUpEvent event, Emitter<SignUpState> emit) async {
       await event.when(
-          createUser: (UserData userData, AuthType authType) =>
-              createUser(emit, userData, authType));
+          createUser: (UserData userData, AuthType authType,PhoneAuthProviderModel? phoneAuthProviderModel) =>
+              createUser(emit, userData, authType,phoneAuthProviderModel));
     });
   }
 
   Future<dynamic> createUser(
-      Emitter<SignUpState> emit, UserData userData, AuthType authType) async {
+      Emitter<SignUpState> emit, UserData userData, AuthType authType,PhoneAuthProviderModel? phoneAuthProviderModel) async {
     Logger.data("Create User Function in bloc ${userData.toJson()}");
     Logger.data("Create User Function in bloc 1 $authType");
-    final Either<ErrorData, UserData> result = await _signUpAccessServices.createUser(userData: userData, authType: authType);
+    Logger.data("Create User Function in bloc 1 ${phoneAuthProviderModel?.toJson()}");
+    Logger.data("Create User Function in bloc 1 ${phoneAuthProviderModel?.codeModelResponse?.toJson()}");
+    Logger.data("Create User Function in bloc 1 ${phoneAuthProviderModel?.codeModelResponse?.verificationId}");
+    final Either<ErrorData, UserData> result = await _signUpAccessServices.createUser(userData: userData, authType: authType,phoneAuthProviderModel: phoneAuthProviderModel);
     Logger.data("Result of user result is: $result");
     emit(
       result.fold(

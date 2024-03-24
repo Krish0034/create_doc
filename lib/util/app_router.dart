@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../auth/presentaion/common/search_location_page.dart';
 import '../auth/presentaion/signup/signup_page_tab.dart';
+import '../dashbord/presentaion/dash_bord_page.dart';
 import '../onbording/walk_through.dart';
 import '../splash_screen.dart';
 import 'lost_connection_page.dart';
@@ -24,6 +25,10 @@ class AppRouter {
         case 'locationPage':
         {
           return MaterialPageRoute(builder: (_) => const SearchLocationPage());
+        }
+        case 'homePage':
+        {
+          return MaterialPageRoute(builder: (_) => const DashBordPage());
         }
       /*case 'coach':
         return MaterialPageRoute(builder: (_) => const CoachMarkScreen());

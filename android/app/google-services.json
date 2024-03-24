@@ -12,7 +12,20 @@
           "package_name": "com.app.create_doc"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "223908772884-a4d1c9m3us33cuctqn5knms90gf54nvt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.create_doc",
+            "certificate_hash": "7d221bb9151e5f05250fb712a890fb3cd85d2bf8"
+          }
+        },
+        {
+          "client_id": "223908772884-n4v1193fbko5uusgv270pdp1rjg6j72a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBn1Tdx2w3-Bogj3Vm2iTnG8eufJsINqXY"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223908772884-n4v1193fbko5uusgv270pdp1rjg6j72a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "223908772884-sft5t7399qnl4ffksmrttraa78qmao2f.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.app.createProject.RunnerTests"
+              }
+            }
+          ]
         }
       }
     }

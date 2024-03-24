@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../auth/model/user_data.dart';
 
-class SheredPreferences
+class PreferencesShared
 {
   static late SharedPreferences _preferences;
   static SharedPreferences get preferences => _preferences;

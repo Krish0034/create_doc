@@ -9,7 +9,9 @@ part of 'base_response.dart';
 BaseResponse _$BaseResponseFromJson(Map<String, dynamic> json) => BaseResponse(
       message: json['message'] as String?,
       error: json['error'] as String?,
-      data: json['data'] as List<dynamic>?,
+      data: (json['data'] as List<dynamic>?)
+          ?.map((e) => e as Map<String, dynamic>)
+          .toList(),
     );
 
 Map<String, dynamic> _$BaseResponseToJson(BaseResponse instance) =>

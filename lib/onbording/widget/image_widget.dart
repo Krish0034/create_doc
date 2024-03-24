@@ -14,9 +14,10 @@ class ImageWidget extends StatelessWidget {
       width: width?? 200,
       height: height??240,
       decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
         image: DecorationImage(
             image: AssetImage(
-              imageUlr??'',
+              imageUlr??''
             ),
           fit: BoxFit.cover
         ),

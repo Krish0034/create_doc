@@ -12,7 +12,7 @@ import 'di/di_setup.dart';
 
 Future<void> main()async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SheredPreferences.init();
+  await PreferencesShared.init();
   await Firebase.initializeApp();
   configureDependencies();
   Logger.data("Auth type in enum is ${AuthType.EMAIL.toString()}");

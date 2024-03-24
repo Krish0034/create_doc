@@ -65,6 +65,7 @@ class AppString
   static const String passwordStrength7 = 'Must contain a upper letter and number ';
   static const String passwordStrength8 = 'Must contain number and special symbol';
   static const String passwordStrength9 = 'Must contain upper letter,number and special symbol';
+  static const String appName = "Create-Doc";
 
   ///
 
@@ -72,6 +73,32 @@ class AppString
   static const String alertText = "Alert";
   static const String sendEmail = "Send Email";
   static const String verifyYourEmail = "Verify your email";
+  static const String otpVerifySuccess = "OTP Verified Successfully";
 
+
+  /// Otp verification page
+
+  static const String otpVerify='OTP Verification';
+  static const String verifyOtpButton='Verify Otp';
+  static const String resend= 'Resend';
+  static const String didNotReceived="Didn't receive OTP? ";
+  static const String pleaseEnterVerify='Please enter the verification code we sent to your registered phone number.';
+  static const String yourOtpVerify='Your One-Time Password has been successfully verified.';
+  static const String pleaseEnterVerifyDesc="The OTP is a 6-digit code. If you didn't receive the OTP within 1 minutes, click on the \"Resend OTP\" button.";
+
+
+  /// Location Page
+
+  static const String locationPageTitle="Address page";
+  static const String searchLocation='Search Location';
+  static const String location='Location';
+  static const String enterLocationHint='Enter your location';
+  static const String findAddress='Find your Address for your needs.';
+
+  /// bottom navbar
+  static const String home="Home";
+  static const String doc="Doc";
+  static const String upload="Upload";
+  static const String profile="Profile";
 
 }

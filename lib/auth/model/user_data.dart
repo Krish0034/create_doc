@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'address_model.dart';
+
 part 'user_data.g.dart';
 
 @JsonSerializable()
@@ -21,6 +23,7 @@ class UserData
   int? usageReminderDate;
   String? uid;
   String? instagram;
+  AddressModel? userAddress;
 
   UserData({
     this.fullName,
@@ -39,6 +42,7 @@ class UserData
     this.usageReminderDate,
     this.uid,
     this.instagram,
+    this.userAddress,
   });
 
   factory UserData.fromJson(Map<String, dynamic> json) =>

@@ -6,4 +6,5 @@ class RoutingString
   static const walkThrough="walkthrough";
   static const signupRoute="signupRoute";
   static const locationPage="locationPage";
+  static const homePage="homePage";
 }

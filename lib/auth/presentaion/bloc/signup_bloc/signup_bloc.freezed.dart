@@ -18,19 +18,27 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$SignUpEvent {
   UserData get userData => throw _privateConstructorUsedError;
   AuthType get authType => throw _privateConstructorUsedError;
+  PhoneAuthProviderModel? get phoneAuthProviderModel =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(UserData userData, AuthType authType) createUser,
+    required TResult Function(UserData userData, AuthType authType,
+            PhoneAuthProviderModel? phoneAuthProviderModel)
+        createUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(UserData userData, AuthType authType)? createUser,
+    TResult? Function(UserData userData, AuthType authType,
+            PhoneAuthProviderModel? phoneAuthProviderModel)?
+        createUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(UserData userData, AuthType authType)? createUser,
+    TResult Function(UserData userData, AuthType authType,
+            PhoneAuthProviderModel? phoneAuthProviderModel)?
+        createUser,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -62,7 +70,10 @@ abstract class $SignUpEventCopyWith<$Res> {
           SignUpEvent value, $Res Function(SignUpEvent) then) =
       _$SignUpEventCopyWithImpl<$Res, SignUpEvent>;
   @useResult
-  $Res call({UserData userData, AuthType authType});
+  $Res call(
+      {UserData userData,
+      AuthType authType,
+      PhoneAuthProviderModel? phoneAuthProviderModel});
 }
 
 /// @nodoc
@@ -80,6 +91,7 @@ class _$SignUpEventCopyWithImpl<$Res, $Val extends SignUpEvent>
   $Res call({
     Object? userData = null,
     Object? authType = null,
+    Object? phoneAuthProviderModel = freezed,
   }) {
     return _then(_value.copyWith(
       userData: null == userData
@@ -90,6 +102,10 @@ class _$SignUpEventCopyWithImpl<$Res, $Val extends SignUpEvent>
           ? _value.authType
           : authType // ignore: cast_nullable_to_non_nullable
               as AuthType,
+      phoneAuthProviderModel: freezed == phoneAuthProviderModel
+          ? _value.phoneAuthProviderModel
+          : phoneAuthProviderModel // ignore: cast_nullable_to_non_nullable
+              as PhoneAuthProviderModel?,
     ) as $Val);
   }
 }
@@ -102,7 +118,10 @@ abstract class _$$CreateUserImplCopyWith<$Res>
       __$$CreateUserImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({UserData userData, AuthType authType});
+  $Res call(
+      {UserData userData,
+      AuthType authType,
+      PhoneAuthProviderModel? phoneAuthProviderModel});
 }
 
 /// @nodoc
@@ -118,6 +137,7 @@ class __$$CreateUserImplCopyWithImpl<$Res>
   $Res call({
     Object? userData = null,
     Object? authType = null,
+    Object? phoneAuthProviderModel = freezed,
   }) {
     return _then(_$CreateUserImpl(
       userData: null == userData
@@ -128,6 +148,10 @@ class __$$CreateUserImplCopyWithImpl<$Res>
           ? _value.authType
           : authType // ignore: cast_nullable_to_non_nullable
               as AuthType,
+      phoneAuthProviderModel: freezed == phoneAuthProviderModel
+          ? _value.phoneAuthProviderModel
+          : phoneAuthProviderModel // ignore: cast_nullable_to_non_nullable
+              as PhoneAuthProviderModel?,
     ));
   }
 }
@@ -135,16 +159,21 @@ class __$$CreateUserImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$CreateUserImpl implements CreateUser {
-  const _$CreateUserImpl({required this.userData, required this.authType});
+  const _$CreateUserImpl(
+      {required this.userData,
+      required this.authType,
+      this.phoneAuthProviderModel});
 
   @override
   final UserData userData;
   @override
   final AuthType authType;
+  @override
+  final PhoneAuthProviderModel? phoneAuthProviderModel;
 
   @override
   String toString() {
-    return 'SignUpEvent.createUser(userData: $userData, authType: $authType)';
+    return 'SignUpEvent.createUser(userData: $userData, authType: $authType, phoneAuthProviderModel: $phoneAuthProviderModel)';
   }
 
   @override
@@ -155,11 +184,14 @@ class _$CreateUserImpl implements CreateUser {
             (identical(other.userData, userData) ||
                 other.userData == userData) &&
             (identical(other.authType, authType) ||
-                other.authType == authType));
+                other.authType == authType) &&
+            (identical(other.phoneAuthProviderModel, phoneAuthProviderModel) ||
+                other.phoneAuthProviderModel == phoneAuthProviderModel));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, userData, authType);
+  int get hashCode =>
+      Object.hash(runtimeType, userData, authType, phoneAuthProviderModel);
 
   @JsonKey(ignore: true)
   @override
@@ -170,27 +202,33 @@ class _$CreateUserImpl implements CreateUser {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(UserData userData, AuthType authType) createUser,
+    required TResult Function(UserData userData, AuthType authType,
+            PhoneAuthProviderModel? phoneAuthProviderModel)
+        createUser,
   }) {
-    return createUser(userData, authType);
+    return createUser(userData, authType, phoneAuthProviderModel);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(UserData userData, AuthType authType)? createUser,
+    TResult? Function(UserData userData, AuthType authType,
+            PhoneAuthProviderModel? phoneAuthProviderModel)?
+        createUser,
   }) {
-    return createUser?.call(userData, authType);
+    return createUser?.call(userData, authType, phoneAuthProviderModel);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(UserData userData, AuthType authType)? createUser,
+    TResult Function(UserData userData, AuthType authType,
+            PhoneAuthProviderModel? phoneAuthProviderModel)?
+        createUser,
     required TResult orElse(),
   }) {
     if (createUser != null) {
-      return createUser(userData, authType);
+      return createUser(userData, authType, phoneAuthProviderModel);
     }
     return orElse();
   }
@@ -227,12 +265,15 @@ class _$CreateUserImpl implements CreateUser {
 abstract class CreateUser implements SignUpEvent {
   const factory CreateUser(
       {required final UserData userData,
-      required final AuthType authType}) = _$CreateUserImpl;
+      required final AuthType authType,
+      final PhoneAuthProviderModel? phoneAuthProviderModel}) = _$CreateUserImpl;
 
   @override
   UserData get userData;
   @override
   AuthType get authType;
+  @override
+  PhoneAuthProviderModel? get phoneAuthProviderModel;
   @override
   @JsonKey(ignore: true)
   _$$CreateUserImplCopyWith<_$CreateUserImpl> get copyWith =>

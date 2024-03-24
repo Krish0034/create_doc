@@ -12,7 +12,7 @@ class BaseResponse {
 
   String? message;
   String? error;
-  List<dynamic>? data;
+  List<Map<String,dynamic>>? data;
 
   factory BaseResponse.fromJson(dynamic json) => _$BaseResponseFromJson(json);
 

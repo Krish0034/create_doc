@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import '../../../../util/app_colors.dart';
 import '../../../../util/app_strings.dart';
@@ -29,40 +30,39 @@ class _LoginEmailTabViewsState extends State<LoginEmailTabViews> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        Expanded(
-          child: SingleChildScrollView(
-            physics: const PageScrollPhysics(),
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Column(
-              children: <Widget>[
-                EmailPasswordWidget(
-                  emailController: emailController,
-                  passwordController: passwordController,
-                ),
-                const Gap(10),
-                const Align(alignment: Alignment.topRight,
-                  child: Text("forget password"),
-                ),
-                const Gap(10),
-                const TermAndCondition(),
-                const Gap(40),
-                const AnotherSocialAuth(),
-                const Gap(40),
-                const DoNotHaveAlreadyAccount()
-              ],
-            ),
+        SingleChildScrollView(
+          physics: const PageScrollPhysics(),
+          padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Column(
+            children: <Widget>[
+              EmailPasswordWidget(
+                emailController: emailController,
+                passwordController: passwordController,
+              ),
+              const Gap(10),
+              const Align(alignment: Alignment.topRight,
+                child: Text("forget password"),
+              ),
+              const Gap(10),
+              const TermAndCondition(),
+              const Gap(40),
+              const AnotherSocialAuth(),
+              const Gap(40),
+              const DoNotHaveAlreadyAccount()
+            ],
           ),
         ),
-        Container(
-          alignment: Alignment.bottomCenter,
-          padding: const EdgeInsets.only(bottom: 40),
-          child: Positioned(
-            bottom: 0,
+        Padding(
+          padding: EdgeInsets.only(bottom: 35.h),
+          child: Align(
+            alignment: Alignment.bottomCenter,
             child: CommonButton(
-              onPressed: () {},
+              onPressed: () {
+
+              },
               width: 140,
               height: 50,
               borderColor: AppColors.backButtonColor.withOpacity(0.5),
@@ -72,6 +72,7 @@ class _LoginEmailTabViewsState extends State<LoginEmailTabViews> {
             ),
           ),
         ),
+
       ],
     );
   }

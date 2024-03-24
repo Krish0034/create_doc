@@ -29,7 +29,10 @@ class _WalkthroughState extends State<Walkthrough> {
           child: Text(
             AppString.onBoardingTitle1,
             textAlign: TextAlign.center,
-            style: CommonTextStyle.normalStyle.copyWith(fontSize: 20),
+            style: CommonTextStyle.normalStyle.copyWith(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
         const Gap(20),
@@ -38,13 +41,13 @@ class _WalkthroughState extends State<Walkthrough> {
           width: 200,
           height: 240,
         ),
-        const Gap(25),
+        const Gap(65),
         Text(
           AppString.onBoardingDesc1,
           textAlign: TextAlign.center,
           style: CommonTextStyle.normalStyle.copyWith(
             fontSize: 18,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ],
@@ -55,7 +58,10 @@ class _WalkthroughState extends State<Walkthrough> {
           child: Text(
             AppString.onBoardingTitle2,
             textAlign: TextAlign.center,
-            style: CommonTextStyle.normalStyle.copyWith(fontSize: 20),
+            style: CommonTextStyle.normalStyle.copyWith(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
         const Gap(20),
@@ -64,7 +70,7 @@ class _WalkthroughState extends State<Walkthrough> {
           width: 200,
           height: 240,
         ),
-        const Gap(25),
+        const Gap(65),
         Text(
           AppString.onBoardingDesc2,
           textAlign: TextAlign.center,
@@ -81,7 +87,10 @@ class _WalkthroughState extends State<Walkthrough> {
           child: Text(
             AppString.onBoardingTitle3,
             textAlign: TextAlign.center,
-            style: CommonTextStyle.normalStyle.copyWith(fontSize: 20),
+            style: CommonTextStyle.normalStyle.copyWith(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
         const Gap(20),
@@ -90,7 +99,7 @@ class _WalkthroughState extends State<Walkthrough> {
           width: 200,
           height: 240,
         ),
-        const Gap(25),
+        const Gap(65),
         Text(
           AppString.onBoardingDesc3,
           textAlign: TextAlign.center,
@@ -116,24 +125,27 @@ class _WalkthroughState extends State<Walkthrough> {
         elevation: 0,
         title: Center(
           child: Text(
-            "AppString",
+            AppString.appName,
             textAlign: TextAlign.center,
-            style: CommonTextStyle.normalStyle.copyWith(fontSize: 22),
+            style: CommonTextStyle.normalStyle.copyWith(fontSize: 23),
           ),
         ),
       ),
       body: Container(
-        padding: EdgeInsets.only(left: 30.w, right: 30.w,bottom: 40.h),
+        padding: EdgeInsets.only(left: 30.w, right: 30.w, bottom: 40.h),
         child: Stack(
           children: [
-            PageView(
-              controller: _pageController,
-              children: pages,
-              onPageChanged: (index) {
-                setState(() {
-                  pageIndex = index;
-                });
-              },
+            Padding(
+              padding: EdgeInsets.only(top: 50.h),
+              child: PageView(
+                controller: _pageController,
+                children: pages,
+                onPageChanged: (index) {
+                  setState(() {
+                    pageIndex = index;
+                  });
+                },
+              ),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -161,92 +173,99 @@ class _WalkthroughState extends State<Walkthrough> {
                 const Gap(20),
                 pageIndex == 2
                     ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: CommonButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const LoginPageTab(),
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: CommonButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginPageTab(),
+                                  ),
+                                );
+                              },
+                              height: 50,
+                              text: AppString.logIn,
+                              textStyle: CommonTextStyle.normalStyle.copyWith(
+                                color: AppColors.backButtonColor,
+                              ),
+                              borderColor:
+                                  AppColors.backButtonColor.withOpacity(0.5),
+                              btnColor: AppColors.whiteColor,
                             ),
-                          );
-                        },
-                        height: 50,
-                        text: AppString.logIn,
-                        textStyle: CommonTextStyle.normalStyle.copyWith(
-                          color: AppColors.backButtonColor,
-                        ),
-                        borderColor: AppColors.backButtonColor.withOpacity(0.5),
-                        btnColor: AppColors.whiteColor,
-                      ),
-                    ),
-                    Gap(30.w),
-                    Expanded(
-                      flex: 1,
-                      child: CommonButton(
-                        onPressed: () {
-                          SheredPreferences.setOnBoardingPass(onBoardingPass: true);
-                          SheredPreferences.setSignUpRoute(signupRoute: "signupRoute");
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const SignUpPageTab(),
+                          ),
+                          Gap(30.w),
+                          Expanded(
+                            flex: 1,
+                            child: CommonButton(
+                              onPressed: () {
+                                PreferencesShared.setOnBoardingPass(
+                                    onBoardingPass: true);
+                                PreferencesShared.setSignUpRoute(
+                                    signupRoute: "signupRoute");
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const SignUpPageTab(),
+                                  ),
+                                );
+                              },
+                              height: 50,
+                              borderColor:
+                                  AppColors.backButtonColor.withOpacity(0.5),
+                              btnColor: AppColors.redButtonColor,
+                              textStyle: CommonTextStyle.normalStyle
+                                  .copyWith(color: AppColors.whiteColor),
+                              text: AppString.signUp,
                             ),
-                          );
-                        },
-                        height: 50,
-                        borderColor: AppColors.backButtonColor.withOpacity(0.5),
-                        btnColor: AppColors.redButtonColor,
-                        textStyle: CommonTextStyle.normalStyle.copyWith(color: AppColors.whiteColor),
-                        text: AppString.signUp,
-                      ),
-                    ),
-                  ],
-                )
+                          ),
+                        ],
+                      )
                     : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: CommonButton(
-                        onPressed: () {
-                          setState(() {
-                            pageIndex = 2;
-                          });
-                        },
-                        height: 50,
-                        text: AppString.skip,
-                        textStyle: CommonTextStyle.normalStyle.copyWith(
-                          color: AppColors.backButtonColor,
-                        ),
-                        borderColor: AppColors.backButtonColor.withOpacity(0.5),
-                        btnColor: AppColors.whiteColor,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: CommonButton(
+                              onPressed: () {
+                                setState(() {
+                                  pageIndex = 2;
+                                });
+                              },
+                              height: 50,
+                              text: AppString.skip,
+                              textStyle: CommonTextStyle.normalStyle.copyWith(
+                                color: AppColors.backButtonColor,
+                              ),
+                              borderColor:
+                                  AppColors.backButtonColor.withOpacity(0.5),
+                              btnColor: AppColors.whiteColor,
+                            ),
+                          ),
+                          Gap(30.w),
+                          Expanded(
+                            flex: 1,
+                            child: CommonButton(
+                              onPressed: () {
+                                _pageController.nextPage(
+                                  duration: const Duration(milliseconds: 500),
+                                  curve: Curves.easeInOut,
+                                );
+                              },
+                              height: 50,
+                              text: AppString.next,
+                              textStyle: CommonTextStyle.normalStyle.copyWith(
+                                color: AppColors.whiteColor,
+                              ),
+                              borderColor:
+                                  AppColors.backButtonColor.withOpacity(0.5),
+                              btnColor: AppColors.redButtonColor,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    Gap(30.w),
-                    Expanded(
-                      flex: 1,
-                      child: CommonButton(
-                        onPressed: () {
-                          _pageController.nextPage(
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.easeInOut,
-                          );
-                        },
-                        height: 50,
-                        text: AppString.next,
-                        textStyle: CommonTextStyle.normalStyle.copyWith(
-                          color: AppColors.backButtonColor,
-                        ),
-                        borderColor: AppColors.backButtonColor.withOpacity(0.5),
-                        btnColor: AppColors.redButtonColor,
-                      ),
-                    ),
-                  ],
-                ),
               ],
             ),
           ],

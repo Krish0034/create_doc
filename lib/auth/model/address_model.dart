@@ -13,12 +13,14 @@ class AddressModel
   String? url;
 
 
-  AddressModel({this.cityName,
+  AddressModel({
+    this.cityName,
       this.stateName,
       this.countryName,
       this.latitude,
       this.longitude,
-      this.url});
+      this.url,
+  });
 
   factory AddressModel.fromJson(Map<String, dynamic> json) =>
       _$AddressModelFromJson(json);

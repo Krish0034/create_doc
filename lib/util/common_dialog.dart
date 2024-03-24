@@ -26,7 +26,7 @@ class CommonDialog
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0),),
           child: SizedBox(
             height: height??200.h,
-            width: width??300.w,
+            width: width??400.w,
             child: Padding(
               padding: EdgeInsets.only(left: 15.w,right: 15.w,top: 10.h,bottom: 20.h),
               child: Column(
@@ -53,13 +53,15 @@ class CommonDialog
                     ),
                   ),
                   Gap(20.h),
-                  Text(
-                    message??'',
-                    textAlign: TextAlign.center,
-                    style:CommonTextStyle.normalStyle.copyWith(
-                      color: AppColors.backButtonColor,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 16,
+                  Expanded(
+                    child: Text(
+                      message??'',
+                      textAlign: TextAlign.center,
+                      style:CommonTextStyle.normalStyle.copyWith(
+                        color: AppColors.backButtonColor,
+                        fontWeight: FontWeight.w400,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                   Gap(20.h),

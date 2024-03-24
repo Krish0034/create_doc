@@ -23,6 +23,9 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
       usageReminderDate: json['usageReminderDate'] as int?,
       uid: json['uid'] as String?,
       instagram: json['instagram'] as String?,
+      userAddress: json['userAddress'] == null
+          ? null
+          : AddressModel.fromJson(json['userAddress'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
@@ -42,4 +45,5 @@ Map<String, dynamic> _$UserDataToJson(UserData instance) => <String, dynamic>{
       'usageReminderDate': instance.usageReminderDate,
       'uid': instance.uid,
       'instagram': instance.instagram,
+      'userAddress': instance.userAddress,
     };

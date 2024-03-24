@@ -1,3 +1,5 @@
+import 'package:create_doc/util/shered_preferences.dart';
+import 'package:create_doc/util/utility_function.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,21 +8,20 @@ import 'package:injectable/injectable.dart';
 import '../../../../core/error_data.dart';
 import '../../../../util/auth_type.dart';
 import '../../../../util/logger.dart';
+import '../../../model/phone_auth_provider_model.dart';
 import '../../../model/user_data.dart';
 import '../../repositories/signup_repository.dart';
 import '../signup_services.dart';
 
 @Injectable(as: SignUpServices)
 class SignUpServicesImpl extends SignUpServices {
-  SignUpServicesImpl(this._signUpRepository);
-
   final SignUpRepository _signUpRepository;
-
   final _authInstances = FirebaseAuth.instance;
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
+  SignUpServicesImpl(this._signUpRepository);
   @override
-  Future<Either<ErrorData, UserData>> createUser({required UserData userData, required AuthType authType}) async
+  Future<Either<ErrorData, UserData>> createUser({required UserData userData, required AuthType authType,PhoneAuthProviderModel? phoneAuthProviderModel}) async
   {
     UserData? userDataResponse;
     Logger.data("Create User Function in service ${userData.toJson()}");
@@ -36,6 +37,7 @@ class SignUpServicesImpl extends SignUpServices {
             if (user != null) {
               Logger.data("after checking data is user: $user");
               userData.uid = user.uid;
+              PreferencesShared.setUuid(uuid: userData.uid);
               userData.authType = authType.toString();
               Logger.data("after set data is UserData: ${userData.toJson()}");
             }
@@ -44,6 +46,24 @@ class SignUpServicesImpl extends SignUpServices {
         Logger.data("after set data is UserData: for ${userData.toJson()}");
         return right(await _signUpRepository.createUser(userData: userData, authType: authType));
       }
+      else if(authType == AuthType.PHONE)
+      {
+        Logger.data("phone auth credential in services ${phoneAuthProviderModel?.codeModelResponse?.verificationId??''}");
+        Logger.data("phone auth credential in services sms code ${phoneAuthProviderModel?.otpCode??""}");
+        PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: phoneAuthProviderModel?.codeModelResponse?.verificationId??'', smsCode: phoneAuthProviderModel?.otpCode??"");
+        await _authInstances.signInWithCredential(credential).then((value)async {
+          Logger.data("createUserWithPhoneNumber is ${value.toString()}");
+          final user = value.user;
+          if (user != null) {
+            Logger.data("after checking data is user: $user");
+            userData.uid = user.uid;
+            PreferencesShared.setUuid(uuid: userData.uid);
+            userData.authType = authType.toString();
+            Logger.data("after set data is UserData: ${userData.toJson()}");
+          }
+        });
+        return right(await _signUpRepository.createUser(userData: userData, authType: authType));
+  }
       else{
         return right(userDataResponse??UserData());
       }
@@ -52,24 +72,12 @@ class SignUpServicesImpl extends SignUpServices {
       return left(ErrorData.httpUnknownError(e.code));
     } on DioError catch (exception) {
       Logger.data("DioError Exception is: $exception");
-      return left(handleDioError(exception));
+      return left(UtilFunction().handleDioError(exception));
     } catch (e) {
       Logger.data("Exception is: $e");
       String? error=e.toString();
       return left(ErrorData.httpUnknownError(error));
     }
-  }
-
-  ErrorData handleDioError(DioError exception) {
-    if (exception.type == DioErrorType.badResponse) {
-      final int statusCode = exception.response?.statusCode ?? 503;
-      if (statusCode == 401) {
-        return const ErrorData.httpUnAuthorizedError();
-      } else {
-        return ErrorData.httpUnknownError(exception.message ?? "");
-      }
-    }
-    return ErrorData.httpUnknownError(exception.message ?? "");
   }
 
 }

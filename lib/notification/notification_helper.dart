@@ -36,12 +36,12 @@ class NotificationHelper {
         return null;
       }
       print("main ios token ==> $iosToken");
-      SheredPreferences.setIosToken(iosToken: iosToken);
+      PreferencesShared.setIosToken(iosToken: iosToken);
       return iosToken;
     } else {
       var token = await FirebaseMessaging.instance.getToken();
       print("token ==> $token");
-      SheredPreferences.setDeviceToken(deviceToken: token);
+      PreferencesShared.setDeviceToken(deviceToken: token);
       return token;
     }
   }

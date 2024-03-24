@@ -12,8 +12,8 @@ class FireBaseStorage
  final _dataBaseInstances = FirebaseFirestore.instance;
 
  static const String userDetails = "userDetails";
+ static const String locationUrl= 'https://maps.googleapis.com/maps/api/place/autocomplete/json';
 
- CollectionReference get usersCollectionReference =>
-     _dataBaseInstances.collection(userDetails);
+ CollectionReference get usersCollectionReference => _dataBaseInstances.collection(userDetails);
 
 }

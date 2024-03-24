@@ -24,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   void initState() {
     Connection.connectivity().then((value){
       Logger.data("Internet connectivity is $value");
-      SheredPreferences.setConnection(connectivity: value);
+      PreferencesShared.setConnection(connectivity: value);
     });
     controller = AnimationController(
       duration: const Duration(
@@ -38,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
     );
 
     controller.addStatusListener((status) {
-      Logger.data("status of listner $status");
+      Logger.data("status of listener $status");
       if (status == AnimationStatus.completed) {
         Navigator.pushNamedAndRemoveUntil(context, openWhichScreen()!, (route) => false);
       }
@@ -51,19 +51,23 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   String? openWhichScreen()
   {
 
-    if(SheredPreferences.getConnection){
-      if (SheredPreferences.getAccessToken.isNotEmpty)
+    if(PreferencesShared.getConnection){
+      if (PreferencesShared.getAccessToken.isNotEmpty)
       {
         Logger.data("this section for home page");
-        if(SheredPreferences.getUserEmailVerify)
+        /*if(PreferencesShared.getUserEmailVerify)
         {
           return RoutingString.locationPage;
+        }*/
+        if(PreferencesShared.getUserEmailVerify)
+        {
+          return RoutingString.homePage;
         }
       }
-      else if(SheredPreferences.signupRoute.isNotEmpty)
+      else if(PreferencesShared.signupRoute.isNotEmpty)
       {
         Logger.data("going to boarding and create account");
-        if(SheredPreferences.getOnBoardingPass)
+        if(PreferencesShared.getOnBoardingPass)
         {
           return RoutingString.signupRoute;
         }
