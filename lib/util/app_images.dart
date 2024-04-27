@@ -31,4 +31,15 @@ static const closeEye="assets/svg/close_eye.svg";
   static const userProfile="assets/navbar/userProfile.jpg";
   static const userProfileGreen="assets/navbar/userProfileGreen.jpg";
 
+  /// user profile
+  static const setting="assets/jpg/setting.jpg";
+  static const backIcon="assets/jpg/backIcon.jpg";
+  static const logout="assets/png/logout.png";
+
+  /// setting tab
+  static const privacyPolicy="assets/png/privacy.png";
+  static const helpSupport="assets/png/helpSupport.png";
+  static const delete="assets/png/delete.png";
+  static const about="assets/png/about.png";
+
 }
