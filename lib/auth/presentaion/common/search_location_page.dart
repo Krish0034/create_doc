@@ -96,9 +96,9 @@ class _SearchLocationPageState extends State<SearchLocationPage> {
                             return CustomTextField(
                               label: AppString.location,
                               controller: locationController,
-                              hint: AppString.enterLocationHint,
+                              hintText: AppString.enterLocationHint,
                               maxLength: 10,
-                              inputType: TextInputType.text,
+                              textInputType: TextInputType.text,
                               onChanged: (p0) {
                                 Logger.data("on changed value is $p0");
                                 if (p0.isNotEmpty && p0.length > 3) {
@@ -129,9 +129,9 @@ class _SearchLocationPageState extends State<SearchLocationPage> {
                       return CustomTextField(
                         label: AppString.location,
                         controller: locationController,
-                        hint: AppString.enterLocationHint,
+                        hintText: AppString.enterLocationHint,
                         maxLength: 10,
-                        inputType: TextInputType.text,
+                        textInputType: TextInputType.text,
                         onChanged: (p0) {
                           Logger.data("on changed value is $p0");
                           if (p0.isNotEmpty && p0.length > 3) {

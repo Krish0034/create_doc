@@ -54,8 +54,8 @@ class _UserDetailsFieldsState extends State<UserDetailsFields> {
             CustomTextField(
               label: AppString.nameHintText,
               controller: widget.nameController,
-              hint: AppString.nameHintText,
-              inputType: TextInputType.text,
+              hintText: AppString.nameHintText,
+              textInputType: TextInputType.text,
               validator: (value) {
                 if (value!.isEmpty || value == null) {
                   return AppString.fullNameValidatorText;
@@ -68,8 +68,8 @@ class _UserDetailsFieldsState extends State<UserDetailsFields> {
             CustomTextField(
               label: AppString.userNameHintText,
               controller: widget.userNameController,
-              hint: AppString.userNameHintText,
-              inputType: TextInputType.text,
+              hintText: AppString.userNameHintText,
+              textInputType: TextInputType.text,
               onChanged: (value) {
                 generatedUserNames.clear();
               },

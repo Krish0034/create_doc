@@ -136,19 +136,19 @@ class BrickBreaker extends FlameGame
     startGame();
   }
 
-  @override
-  KeyEventResult onKeyEvent(
-      KeyEvent event,
-      Set<LogicalKeyboardKey> keysPressed,
-      ) {
-    super.onKeyEvent(event, keysPressed);
-    switch (event.logicalKey) {
-      case LogicalKeyboardKey.space:
-      case LogicalKeyboardKey.enter:
-        startGame();
-    }
-    return KeyEventResult.handled;
-  }
+  // @override
+  // KeyEventResult onKeyEvent(
+  //     KeyEvent event,
+  //     Set<LogicalKeyboardKey> keysPressed,
+  //     ) {
+  //   super.onKeyEvent(event, keysPressed);
+  //   switch (event.logicalKey) {
+  //     case LogicalKeyboardKey.space:
+  //     case LogicalKeyboardKey.enter:
+  //       startGame();
+  //   }
+  //   return KeyEventResult.handled;
+  // }
 
   @override
   Color backgroundColor() => const Color(0xfff2e8cf);

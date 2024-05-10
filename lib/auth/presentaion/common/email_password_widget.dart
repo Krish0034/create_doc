@@ -31,8 +31,9 @@ class _EmailPasswordWidgetState extends State<EmailPasswordWidget> {
         CustomTextField(
           label: AppString.emailHintText,
           controller: widget.emailController,
-          hint: AppString.emailHintText,
-          inputType: TextInputType.text,
+          hintText: AppString.emailHintText,
+          autoValidateMode: AutovalidateMode.onUserInteraction,
+          textInputType: TextInputType.text,
           validator: (value) {
             if (value!.isEmpty || value == null) {
               Logger.data("empty email field");
@@ -56,8 +57,9 @@ class _EmailPasswordWidgetState extends State<EmailPasswordWidget> {
         CustomTextField(
           label: AppString.passwordHintText,
           controller: widget.passwordController,
-          hint: AppString.passwordHintText,
-          inputType: TextInputType.visiblePassword,
+          hintText: AppString.passwordHintText,
+          textInputType: TextInputType.visiblePassword,
+          autoValidateMode: AutovalidateMode.onUserInteraction,
           obscureText: obscure,
           suffixIcon: GestureDetector(
               onTap: () {

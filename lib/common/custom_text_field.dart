@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../util/app_colors.dart';
@@ -7,17 +8,43 @@ import '../util/common_text_style.dart';
 
 // ignore: must_be_immutable
 class CustomTextField extends StatelessWidget {
-  CustomTextField(
+
+  final String? label;
+  final TextStyle? textStyle;
+  final void Function()? onTap;
+  final int? maxLines;
+  final int? minLines;
+  final int? maxLength;
+  final TextCapitalization? textCapitalization;
+  final  bool? readOnly;
+  final TextInputType textInputType;
+  final TextEditingController controller;
+  final  Function(String)? onChanged;
+  final Function(String)? onSubmitted;
+  final Function validator;
+  final bool? obscureText;
+  final bool isInputFormatters;
+  final TextInputAction? textInputAction;
+  final String? initialText;
+  final Widget? suffixIcon;
+  final EdgeInsets? contentPadding;
+  final Widget? prefixIcon;
+  final String? errorText;
+  final String? hintText;
+  final Color? fillColor;
+  final TextStyle? hinTextStyle;
+  final bool? hintColorsOpacity;
+  final TextStyle? errorTextStyle;
+  final List<TextInputFormatter>? inputFormatters;
+  final AutovalidateMode? autoValidateMode;
+
+  const CustomTextField(
       {this.prefixIcon,
       this.maxLength,
-      this.textCapitalization = false,
-      this.textLimitLength,
-      this.autoFocus,
-      this.focusNode,
-      this.formKey,
+      this.textCapitalization,
       required this.controller,
-      required this.hint,
-      required this.inputType,
+      this.hintText,
+      required this.textInputType,
       this.onTap,
       this.fillColor,
       this.obscureText,
@@ -25,147 +52,119 @@ class CustomTextField extends StatelessWidget {
       this.onChanged,
       this.suffixIcon,
       this.readOnly,
-      this.hintColorOpticity = false,
+      this.hintColorsOpacity = false,
       this.autoValidateMode,
-      this.outlinedBorder,
       this.maxLines,
       this.label,
-      this.suffixText,
-      super.key});
+      this.textStyle,
+      this.minLines,
+      this.onSubmitted,
+      this.inputFormatters,
+      this.isInputFormatters=false,
+      this.textInputAction,
+      this.initialText,
+      this.contentPadding,
+      this.errorText,
+      this.hinTextStyle,
+      super.key, this.errorTextStyle
+      });
 
-  final String hint;
-  final TextEditingController controller;
-  final TextInputType inputType;
-  bool? obscureText;
-  final Function validator;
-  Function(String)? onChanged;
-  void Function()? onTap;
-  Widget? suffixIcon;
-  Widget? prefixIcon;
-  bool? readOnly;
-  bool? hintColorOpticity;
-  AutovalidateMode? autoValidateMode;
-  InputBorder? outlinedBorder;
-  int? maxLines;
-  int? maxLength;
-  FocusNode? focusNode;
-  int? textLimitLength;
-  int? maxDecimalDigits;
-  late bool textCapitalization = false;
-  String? label;
-  String? suffixText;
-  Color? fillColor;
-  bool? autoFocus;
-  GlobalKey<FormState>? formKey;
 
   @override
   Widget build(BuildContext context) {
-    return FormField(builder: (state) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (label != null)
-            Text(
-              label!,
-              textAlign: TextAlign.start,
-              style: CommonTextStyle.normalStyle,
-            ),
-          if (label != null) const Gap(10),
-          TextFormField(
-            maxLength: maxLength,
-            cursorColor: AppColors.backButtonColor,
-            maxLines: maxLines ?? 1,
-            focusNode: focusNode,
-            readOnly: readOnly ?? false,
-            obscureText: obscureText ?? false,
-            textCapitalization: textCapitalization
-                ? TextCapitalization.sentences
-                : TextCapitalization.none,
-            autovalidateMode:
-                autoValidateMode ?? AutovalidateMode.onUserInteraction,
-            controller: controller,
-            keyboardType: inputType,
-            style: CommonTextStyle.normalStyle,
-            onTap:onTap??() {},
-            decoration: InputDecoration(
-              counterText: '',
-              prefixIcon: prefixIcon,
-              prefixText: suffixText,
-              prefixStyle: CommonTextStyle.normalStyle,
-              filled: true,
-              enabledBorder: outlinedBorder ??
-                  OutlineInputBorder(
-                    borderSide: const BorderSide(
-                      color: AppColors.backButtonColor,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(7.0),
-                  ),
-              contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              isDense: false,
-              focusColor: Colors.white,
-              border: outlinedBorder ??
-                  OutlineInputBorder(
-                    borderSide: readOnly != null
-                        ? !readOnly!
-                            ? const BorderSide(
-                                color: AppColors.backButtonColor,
-                                width: 1,
-                              )
-                            :  const BorderSide(
-                      color: AppColors.backButtonColor,
-                      width: 1,
-                    )
-                        :  const BorderSide(
-                      color: AppColors.backButtonColor,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(7.0),
-                  ),
-              errorBorder: OutlineInputBorder(
-                borderSide:  const BorderSide(
-                  color: AppColors.backButtonColor,
-                  width: 1,
-                ),
-                borderRadius: BorderRadius.circular(10.0),
+    return FormField(
+      builder: (state) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (label != null)
+              Text(
+                label!,
+                textAlign: TextAlign.start,
+                style: CommonTextStyle.normalStyle,
               ),
-              focusedBorder: outlinedBorder ??
-                  OutlineInputBorder(
-                    borderSide:  const BorderSide(
-                      color: AppColors.backButtonColor,
-                      width: 1,
-                    ),
-                    borderRadius: BorderRadius.circular(7.0),
-                  ),
-              fillColor: fillColor ?? AppColors.whiteColor,
-              suffixIcon: suffixIcon,
-              hintStyle: readOnly != null
-                  ? !readOnly!
-                      ?CommonTextStyle.normalStyle
-                      : CommonTextStyle.normalStyle.copyWith(
-                          color: hintColorOpticity!
-                              ? Colors.black.withOpacity(0.4)
-                              : Colors.black)
-                  : CommonTextStyle.normalStyle,
-              hintText: hint,
-            ),
-            inputFormatters: textLimitLength != null
-                ? [
-                    LengthLimitingTextInputFormatter(textLimitLength),
-                    TextInputFormatterWithDecimal(
-                      maxDigits: maxDecimalDigits ?? 2,
-                    ),
-                  ]
-                : [],
-            validator: (value) => validator(value),
-            onChanged:onChanged?? (value){},
-          ),
+            if (label != null) const Gap(10),
+            TextFormField(
+              style: textStyle??CommonTextStyle.normalStyle,
+              onTap: onTap,
+              maxLines: maxLines ?? 1,
+              minLines: minLines ?? 1,
+              maxLength: maxLength ?? 20,
+              textCapitalization: textCapitalization ?? TextCapitalization.sentences,
+              readOnly:  readOnly ?? false,
+              keyboardType: textInputType,
+              controller: controller,
+              onChanged:onChanged?? (value){},
+              onFieldSubmitted: onSubmitted,
+              validator: (value) => validator(value),
+              obscureText: obscureText ?? false,
+              inputFormatters: isInputFormatters == true ? null : inputFormatters ?? [],
+              autovalidateMode: autoValidateMode ?? AutovalidateMode.onUserInteraction,
+              cursorColor: AppColors.backButtonColor,
+              textInputAction: textInputAction ?? TextInputAction.done,
+              initialValue: initialText,
+              decoration: InputDecoration(
+                counterText: '',
+                suffixIcon: suffixIcon,
+                // suffixIconColor: iconColor ?? AppTheme().lightWhiteGreyTheme,
+                contentPadding: contentPadding ?? EdgeInsets.fromLTRB(20.w, 10.h, 10.w, 0.h),
+                prefixIcon: prefixIcon,
+                errorText: errorText,
+                hintText: hintText,
+                filled: true,
+                fillColor: fillColor ?? AppColors.whiteColor,
+                hintStyle: hinTextStyle??CommonTextStyle.normalStyle.copyWith(
+                    color: hintColorsOpacity??false
+                        ? Colors.black.withOpacity(0.4)
+                        : Colors.black),
+                errorStyle: errorTextStyle,
+                focusedErrorBorder: OutlineInputBorder(
+                  // borderSide: BorderSide(
+                  //   width: 1.5.w,
+                  //   color: borderColor ?? AppTheme().barThemeColor,
+                  // ), //<-- SEE HERE
+                  // borderRadius: borderChange ??
+                  //     BorderRadius.circular(borderRadius ?? 50.0.r),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  // borderSide: BorderSide(
+                  //   width: 1.5.w,
+                  //   color: borderColor ?? AppTheme().barThemeColor,
+                  // ), //<-- SEE HERE
+                  // borderRadius: borderChange ??
+                  //     BorderRadius.circular(borderRadius ?? 50.0.r),
+                ),
+                border: OutlineInputBorder(
+                  // borderSide: BorderSide(
+                  //   width: 1.5.w,
+                  //   color: borderColor ?? AppTheme().barThemeColor,
+                  // ), //<-- SEE HERE
+                  // borderRadius: borderChange ??
+                  //     BorderRadius.circular(borderRadius ?? 50.0.r),
+                ),
+                errorBorder: OutlineInputBorder(
+                  // borderSide: BorderSide(
+                  //   width: 1.5.w,
+                  //   color: borderColor ?? AppTheme().barThemeColor,
+                  // ), //<-- SEE HERE
+                  // borderRadius: borderChange ??
+                  //     BorderRadius.circular(borderRadius ?? 50.0.r),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 1.5.w,
+                    // color: borderColor ?? AppTheme().barThemeColor,
+                  ), //<-- SEE HERE
+                  // borderRadius: borderChange ??
+                  //     BorderRadius.circular(borderRadius ?? 50.0.r),
+                ),
+              ),
+            )
 
-        ],
-      );
-    },
+          ],
+        );
+      },
     );
   }
 }
