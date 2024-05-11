@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
@@ -11,7 +12,7 @@ import '../util/app_strings.dart';
 class CustomPhoneTextField extends StatelessWidget {
   final String hint;
   final TextEditingController controller;
-  final TextInputType inputType;
+  final TextInputType keyboardType;
   final bool? obscureText;
   final Function validator;
   final Function? onChanged;
@@ -30,7 +31,7 @@ class CustomPhoneTextField extends StatelessWidget {
     this.formKey,
     required this.controller,
     required this.hint,
-    required this.inputType,
+    required this.keyboardType,
     this.onTap,
     this.fillColor,
     this.obscureText,
@@ -92,17 +93,15 @@ class CustomPhoneTextField extends StatelessWidget {
                 obscureText: obscureText ?? false,
                 autovalidateMode: autoValidateMode ?? AutovalidateMode.onUserInteraction,
                 controller: controller,
-                keyboardType: inputType,
-                style: CommonTextStyle.normalStyle.copyWith(
-                  color: AppColors.backButtonColor,
-                  fontWeight: FontWeight.w400,
-                  fontSize: 18,
-                ),
+                keyboardType: keyboardType,
                 onTap: () {
                   if (onTap != null) {
                     onTap!();
                   }
                 },
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly
+                ],
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(vertical: 8.0),
                   counter: const SizedBox(),

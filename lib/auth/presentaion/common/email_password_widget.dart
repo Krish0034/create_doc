@@ -6,6 +6,7 @@ import '../../../common/custom_text_field.dart';
 import '../../../util/app_colors.dart';
 import '../../../util/app_images.dart';
 import '../../../util/app_strings.dart';
+import '../../../util/common_text_style.dart';
 import '../../../util/logger.dart';
 import '../../../util/validator_fields.dart';
 
@@ -34,6 +35,9 @@ class _EmailPasswordWidgetState extends State<EmailPasswordWidget> {
           hintText: AppString.emailHintText,
           autoValidateMode: AutovalidateMode.onUserInteraction,
           textInputType: TextInputType.text,
+          hinTextStyle:CommonTextStyle.normalStyle.copyWith(
+            color:  Colors.black.withOpacity(0.4),),
+          borderRadius: BorderRadius.circular(10.r),
           validator: (value) {
             if (value!.isEmpty || value == null) {
               Logger.data("empty email field");
@@ -59,6 +63,9 @@ class _EmailPasswordWidgetState extends State<EmailPasswordWidget> {
           controller: widget.passwordController,
           hintText: AppString.passwordHintText,
           textInputType: TextInputType.visiblePassword,
+          borderRadius: BorderRadius.circular(10.r),
+          hinTextStyle:CommonTextStyle.normalStyle.copyWith(
+            color:  Colors.black.withOpacity(0.4),),
           autoValidateMode: AutovalidateMode.onUserInteraction,
           obscureText: obscure,
           suffixIcon: GestureDetector(
@@ -84,7 +91,7 @@ class _EmailPasswordWidgetState extends State<EmailPasswordWidget> {
                 ),
               )),
           onChanged: (value) {
-            if (value == null || value == "") {
+            if (value == "") {
               setState(() {
                 strengthPasswordVisibility = false;
               });

@@ -22,7 +22,7 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
       readOnly: false,
       label: AppString.phoneHintText,
       hint: AppString.phoneHintText,
-      inputType: TextInputType.phone,
+      keyboardType: TextInputType.number,
       controller:widget.phoneController,
       validator: (PhoneNumber value) {
         Logger.data("validate phone number is $value");

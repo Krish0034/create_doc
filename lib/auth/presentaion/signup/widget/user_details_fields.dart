@@ -10,6 +10,7 @@ import '../../../../di/di_setup.dart';
 import '../../../../util/app_colors.dart';
 import '../../../../util/app_strings.dart';
 import '../../../../util/auth_type.dart';
+import '../../../../util/common_text_style.dart';
 import '../../bloc/user_name_bloc/user_name_bloc.dart';
 
 class UserDetailsFields extends StatefulWidget {
@@ -56,6 +57,9 @@ class _UserDetailsFieldsState extends State<UserDetailsFields> {
               controller: widget.nameController,
               hintText: AppString.nameHintText,
               textInputType: TextInputType.text,
+              borderRadius: BorderRadius.circular(10.r),
+              hinTextStyle:CommonTextStyle.normalStyle.copyWith(
+                  color:  Colors.black.withOpacity(0.4),),
               validator: (value) {
                 if (value!.isEmpty || value == null) {
                   return AppString.fullNameValidatorText;
@@ -70,6 +74,9 @@ class _UserDetailsFieldsState extends State<UserDetailsFields> {
               controller: widget.userNameController,
               hintText: AppString.userNameHintText,
               textInputType: TextInputType.text,
+              borderRadius: BorderRadius.circular(10.r),
+              hinTextStyle:CommonTextStyle.normalStyle.copyWith(
+                color:  Colors.black.withOpacity(0.4),),
               onChanged: (value) {
                 generatedUserNames.clear();
               },

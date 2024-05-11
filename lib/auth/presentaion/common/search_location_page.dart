@@ -99,6 +99,7 @@ class _SearchLocationPageState extends State<SearchLocationPage> {
                               hintText: AppString.enterLocationHint,
                               maxLength: 10,
                               textInputType: TextInputType.text,
+                              borderRadius: BorderRadius.circular(10.r),
                               onChanged: (p0) {
                                 Logger.data("on changed value is $p0");
                                 if (p0.isNotEmpty && p0.length > 3) {
