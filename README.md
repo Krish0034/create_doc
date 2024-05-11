@@ -2,9 +2,10 @@
 
 A new Flutter project.
 
-## Getting Started
+## AUTHENTICATION MODUL:
 
-This project is a starting point for a Flutter application.
+I've developed an authentication module for a Flutter project using Firebase Authentication. Firebase Authentication provides a robust set of tools for authenticating users, including email authentication, phone authentication, and social authentication through providers like Google, Facebook, Twitter, and more. Here's a breakdown of the components I've implemented:
+
 
 A few resources to get you started if this is your first Flutter project:
 
