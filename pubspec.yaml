@@ -1,0 +1,111 @@
+name: create_doc
+description: "A new Flutter project."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+
+
+#  Platform  Firebase App Id
+#  web       1:223908772884:web:4b48419ce202d983983b01
+#  android   1:223908772884:android:0d7df6d10377f462983b01
+#  ios       1:223908772884:ios:e573b9b64d4ad62c983b01
+#  macos     1:223908772884:ios:4a3c6fdf3faa6180983b01
+
+
+
+#Alias name: androiddebugkey
+#Creation date: 15-Feb-2024
+#Entry type: PrivateKeyEntry
+#Certificate chain length: 1
+#Certificate[1]:
+#Owner: C=US, O=Android, CN=Android Debug
+#Issuer: C=US, O=Android, CN=Android Debug
+#Serial number: 1
+#Valid from: Thu Feb 15 22:05:35 IST 2024 until: Sat Feb 07 22:05:35 IST 2054
+#Certificate fingerprints:
+#  SHA1: 7D:22:1B:B9:15:1E:5F:05:25:0F:B7:12:A8:90:FB:3C:D8:5D:2B:F8
+#  SHA256: AC:CB:E4:F2:D5:14:73:BC:B8:03:C5:96:7F:D3:93:1C:E5:77:9C:F7:3C:B1:A4:28:F0:F9:45:C6:75:B4:90:38
+#Signature algorithm name: SHA256withRSA
+#Subject Public Key Algorithm: 2048-bit RSA key
+#Version: 1
+
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_screenutil: ^5.9.0
+  flutter_bloc: ^8.1.4
+  json_annotation: ^4.8.1
+  freezed_annotation: ^2.4.1
+  dartz: ^0.10.1
+  path: ^1.8.3
+  retrofit: ^4.1.0
+  get_it: ^7.6.7
+  injectable: ^2.3.2
+  giffy_dialog: ^2.0.0+2
+  cupertino_icons: ^1.0.2
+  shared_preferences: ^2.2.2
+  internet_connection_checker: ^1.0.0+1
+  flutter_svg: ^2.0.9
+  dots_indicator: ^3.0.0
+  gap: ^3.0.1
+  intl_phone_field: ^3.2.0
+  intl: ^0.18.1
+  rename: ^3.0.1
+  firebase_core: ^2.25.4
+  firebase_auth: ^4.17.4
+  firebase_messaging: ^14.7.15
+  firebase_storage: ^11.6.5
+  firebase_pagination: ^3.1.0
+  cloud_firestore: ^4.15.4
+  flutter_local_notifications: ^16.3.2
+  flutter_styled_toast: ^2.2.1
+  google_maps_flutter: ^2.5.3
+  google_maps_flutter_web: ^0.5.4+3
+  geolocator: ^11.0.0
+  pin_code_fields: ^8.0.1
+  flame: ^1.7.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+  injectable_generator: ^2.4.1
+  json_serializable: ^6.7.1
+  retrofit_generator: ^8.1.0
+  build_runner: ^2.4.8
+  freezed: ^2.4.7
+  mockito: ^5.4.4
+  dio: ^5.4.1
+
+
+flutter:
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/gif/
+    - assets/svg/
+    - assets/onboarding/
+    - assets/png/
+    - assets/navbar/
+    - assets/jpg/
+
+  fonts:
+    - family: Swansea
+      fonts:
+        - asset: assets/fonts/swansea-font/Swansea-q3pd.ttf
+          style: normal
+    - family: Swansea
+      fonts:
+        - asset: assets/fonts/swansea-font/SwanseaBold-D0ox.ttf
+          weight: 700
+
