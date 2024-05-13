@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'signup_bloc.dart';
+part of 'email_signup_bloc.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$SignUpEvent {
+mixin _$EmailSignUpEvent {
   UserData get userData => throw _privateConstructorUsedError;
   AuthType get authType => throw _privateConstructorUsedError;
   PhoneAuthProviderModel? get phoneAuthProviderModel =>
@@ -60,15 +60,15 @@ mixin _$SignUpEvent {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SignUpEventCopyWith<SignUpEvent> get copyWith =>
+  $EmailSignUpEventCopyWith<EmailSignUpEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SignUpEventCopyWith<$Res> {
-  factory $SignUpEventCopyWith(
-          SignUpEvent value, $Res Function(SignUpEvent) then) =
-      _$SignUpEventCopyWithImpl<$Res, SignUpEvent>;
+abstract class $EmailSignUpEventCopyWith<$Res> {
+  factory $EmailSignUpEventCopyWith(
+          EmailSignUpEvent value, $Res Function(EmailSignUpEvent) then) =
+      _$EmailSignUpEventCopyWithImpl<$Res, EmailSignUpEvent>;
   @useResult
   $Res call(
       {UserData userData,
@@ -77,9 +77,9 @@ abstract class $SignUpEventCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SignUpEventCopyWithImpl<$Res, $Val extends SignUpEvent>
-    implements $SignUpEventCopyWith<$Res> {
-  _$SignUpEventCopyWithImpl(this._value, this._then);
+class _$EmailSignUpEventCopyWithImpl<$Res, $Val extends EmailSignUpEvent>
+    implements $EmailSignUpEventCopyWith<$Res> {
+  _$EmailSignUpEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -112,7 +112,7 @@ class _$SignUpEventCopyWithImpl<$Res, $Val extends SignUpEvent>
 
 /// @nodoc
 abstract class _$$CreateUserImplCopyWith<$Res>
-    implements $SignUpEventCopyWith<$Res> {
+    implements $EmailSignUpEventCopyWith<$Res> {
   factory _$$CreateUserImplCopyWith(
           _$CreateUserImpl value, $Res Function(_$CreateUserImpl) then) =
       __$$CreateUserImplCopyWithImpl<$Res>;
@@ -126,7 +126,7 @@ abstract class _$$CreateUserImplCopyWith<$Res>
 
 /// @nodoc
 class __$$CreateUserImplCopyWithImpl<$Res>
-    extends _$SignUpEventCopyWithImpl<$Res, _$CreateUserImpl>
+    extends _$EmailSignUpEventCopyWithImpl<$Res, _$CreateUserImpl>
     implements _$$CreateUserImplCopyWith<$Res> {
   __$$CreateUserImplCopyWithImpl(
       _$CreateUserImpl _value, $Res Function(_$CreateUserImpl) _then)
@@ -173,7 +173,7 @@ class _$CreateUserImpl implements CreateUser {
 
   @override
   String toString() {
-    return 'SignUpEvent.createUser(userData: $userData, authType: $authType, phoneAuthProviderModel: $phoneAuthProviderModel)';
+    return 'EmailSignUpEvent.createUser(userData: $userData, authType: $authType, phoneAuthProviderModel: $phoneAuthProviderModel)';
   }
 
   @override
@@ -262,7 +262,7 @@ class _$CreateUserImpl implements CreateUser {
   }
 }
 
-abstract class CreateUser implements SignUpEvent {
+abstract class CreateUser implements EmailSignUpEvent {
   const factory CreateUser(
       {required final UserData userData,
       required final AuthType authType,
@@ -281,20 +281,20 @@ abstract class CreateUser implements SignUpEvent {
 }
 
 /// @nodoc
-mixin _$SignUpState {
+mixin _$EmailSignUpState {
   Option<UserData> get userData => throw _privateConstructorUsedError;
   ErrorData? get errorData => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SignUpStateCopyWith<SignUpState> get copyWith =>
+  $EmailSignUpStateCopyWith<EmailSignUpState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SignUpStateCopyWith<$Res> {
-  factory $SignUpStateCopyWith(
-          SignUpState value, $Res Function(SignUpState) then) =
-      _$SignUpStateCopyWithImpl<$Res, SignUpState>;
+abstract class $EmailSignUpStateCopyWith<$Res> {
+  factory $EmailSignUpStateCopyWith(
+          EmailSignUpState value, $Res Function(EmailSignUpState) then) =
+      _$EmailSignUpStateCopyWithImpl<$Res, EmailSignUpState>;
   @useResult
   $Res call({Option<UserData> userData, ErrorData? errorData});
 
@@ -302,9 +302,9 @@ abstract class $SignUpStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
-    implements $SignUpStateCopyWith<$Res> {
-  _$SignUpStateCopyWithImpl(this._value, this._then);
+class _$EmailSignUpStateCopyWithImpl<$Res, $Val extends EmailSignUpState>
+    implements $EmailSignUpStateCopyWith<$Res> {
+  _$EmailSignUpStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -344,7 +344,7 @@ class _$SignUpStateCopyWithImpl<$Res, $Val extends SignUpState>
 
 /// @nodoc
 abstract class _$$SignUpStateImplCopyWith<$Res>
-    implements $SignUpStateCopyWith<$Res> {
+    implements $EmailSignUpStateCopyWith<$Res> {
   factory _$$SignUpStateImplCopyWith(
           _$SignUpStateImpl value, $Res Function(_$SignUpStateImpl) then) =
       __$$SignUpStateImplCopyWithImpl<$Res>;
@@ -358,7 +358,7 @@ abstract class _$$SignUpStateImplCopyWith<$Res>
 
 /// @nodoc
 class __$$SignUpStateImplCopyWithImpl<$Res>
-    extends _$SignUpStateCopyWithImpl<$Res, _$SignUpStateImpl>
+    extends _$EmailSignUpStateCopyWithImpl<$Res, _$SignUpStateImpl>
     implements _$$SignUpStateImplCopyWith<$Res> {
   __$$SignUpStateImplCopyWithImpl(
       _$SignUpStateImpl _value, $Res Function(_$SignUpStateImpl) _then)
@@ -395,7 +395,7 @@ class _$SignUpStateImpl implements _SignUpState {
 
   @override
   String toString() {
-    return 'SignUpState(userData: $userData, errorData: $errorData)';
+    return 'EmailSignUpState(userData: $userData, errorData: $errorData)';
   }
 
   @override
@@ -419,7 +419,7 @@ class _$SignUpStateImpl implements _SignUpState {
       __$$SignUpStateImplCopyWithImpl<_$SignUpStateImpl>(this, _$identity);
 }
 
-abstract class _SignUpState implements SignUpState {
+abstract class _SignUpState implements EmailSignUpState {
   factory _SignUpState(
       {required final Option<UserData> userData,
       final ErrorData? errorData}) = _$SignUpStateImpl;

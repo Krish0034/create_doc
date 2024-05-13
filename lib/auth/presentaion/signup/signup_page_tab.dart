@@ -8,8 +8,7 @@ import '../../../di/di_setup.dart';
 import '../../../util/app_colors.dart';
 import '../../../util/app_strings.dart';
 import '../../../util/common_text_style.dart';
-import '../bloc/signup_bloc/signup_bloc.dart';
-
+import '../bloc/email_signup_bloc/email_signup_bloc.dart';
 class SignUpPageTab extends StatefulWidget {
   const SignUpPageTab({super.key});
 
@@ -20,11 +19,11 @@ class SignUpPageTab extends StatefulWidget {
 class SignUpPageTabState extends State<SignUpPageTab>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  late SignUpBloc _signupBloc;
+  late EmailSignUpBloc _signupBloc;
 
   @override
   void initState() {
-    _signupBloc = getIt<SignUpBloc>();
+    _signupBloc = getIt<EmailSignUpBloc>();
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
@@ -47,7 +46,7 @@ class SignUpPageTabState extends State<SignUpPageTab>
         ),
         backgroundColor: AppColors.whiteColor,
       ),
-      body: BlocProvider<SignUpBloc>(
+      body: BlocProvider<EmailSignUpBloc>(
         create: (context) => _signupBloc,
         child: Padding(
           padding: EdgeInsets.only(

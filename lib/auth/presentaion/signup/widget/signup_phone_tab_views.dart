@@ -18,6 +18,7 @@ import '../../../../util/common_button.dart';
 import '../../../../util/common_dialog.dart';
 import '../../../../util/common_text_style.dart';
 import '../../../../util/logger.dart';
+import '../../../../util/utility_function.dart';
 import '../../../model/user_data.dart';
 import '../../common/anothe_social_auth.dart';
 import '../../common/have_already_account.dart';
@@ -49,7 +50,8 @@ class _SignUpPhoneTabViewState extends State<SignUpPhoneTabView> {
   Widget build(BuildContext context) {
     return BlocListener(
       bloc: _phoneAuthBloc,
-      listener: (context, state) {
+      listener: (BuildContext context, state)
+      {
         if(state is PhoneAuthState)
         {
           CodeModelResponse codeModelResponse = state.codeModelResponse.getOrElse(() => CodeModelResponse());
@@ -133,7 +135,13 @@ class _SignUpPhoneTabViewState extends State<SignUpPhoneTabView> {
               alignment: Alignment.bottomCenter,
               child: CommonButton(
                 onPressed: () {
-                  if (_validateFields()) {
+                  bool? isValid =UtilFunction().validateFields([
+                    phoneController,
+                    nameController,
+                    userNameController,
+                  ]);
+
+                  if (isValid??false) {
                     String? fcmToken;
                     FirebaseMessaging.instance.getToken().then((token) {
                       Logger.data("token is $token");
@@ -160,8 +168,8 @@ class _SignUpPhoneTabViewState extends State<SignUpPhoneTabView> {
                       fcm: fcmToken,
                       status: true,
                     );
-                    // AuthType.EMAIL,
-                  } else {
+                  }
+                  else {
                     Logger.data("fields are not validate fully");
                   }
                 },
@@ -180,13 +188,4 @@ class _SignUpPhoneTabViewState extends State<SignUpPhoneTabView> {
     );
   }
 
-  bool _validateFields() {
-    if (phoneController.text.isNotEmpty &&
-        nameController.text.isNotEmpty &&
-        userNameController.text.isNotEmpty) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 }

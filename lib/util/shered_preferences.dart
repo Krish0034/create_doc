@@ -85,4 +85,11 @@ class PreferencesShared
     return null;
   }
 
+
+  /// Remove data
+  static Future<bool> clearAllData() async
+  {
+    return await _preferences.clear().then((value) => true);
+  }
+
 }

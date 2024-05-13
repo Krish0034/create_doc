@@ -24,7 +24,8 @@ import '../../../util/common_text_style.dart';
 import '../../../util/logger.dart';
 import '../../../util/shered_preferences.dart';
 import '../../model/phone_auth_provider_model.dart';
-import '../bloc/signup_bloc/signup_bloc.dart';
+
+import '../bloc/email_signup_bloc/email_signup_bloc.dart';
 import 'otp_box_field.dart';
 
 class OtpVerificationPage extends StatefulWidget {
@@ -40,7 +41,7 @@ class OtpVerificationPage extends StatefulWidget {
 
 class _OtpVerificationPageState extends State<OtpVerificationPage> {
   final TextEditingController otpController = TextEditingController();
-  late SignUpBloc _signupBloc;
+  late EmailSignUpBloc _signupBloc;
   late PhoneAuthBloc _phoneAuthBloc;
   late String otpValue = '';
   late Timer _timer;
@@ -50,7 +51,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
   @override
   void initState() {
     startTimer();
-    _signupBloc = getIt<SignUpBloc>();
+    _signupBloc = getIt<EmailSignUpBloc>();
     _phoneAuthBloc = getIt<PhoneAuthBloc>();
     super.initState();
   }
@@ -70,7 +71,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
       body: BlocListener(
         bloc: _signupBloc,
         listener: (context, state) {
-          if (state is SignUpState) {
+          if (state is EmailSignUpState) {
             UserData userData1 = state.userData.getOrElse(() => UserData());
             ErrorData? errorData = state.errorData;
             if (!state.userData.isNone()) {
@@ -105,7 +106,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                   ),
                 );*/
               });
-            } else {
+            }
+            else {
               if (errorData is HttpUnknownErrorData) {
                 String errorMessage = errorData.message;
                 if (errorMessage == 'email-already-in-use') {
@@ -158,12 +160,12 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
               ),
               BlocBuilder<PhoneAuthBloc, PhoneAuthState>(
                 bloc: _phoneAuthBloc,
-                builder: (context, state) {
+                builder: (context, state)
+                {
                   CodeModelResponse codeResponse = state.codeModelResponse
                       .getOrElse(() => CodeModelResponse());
                   if (codeResponse.verificationId?.isNotEmpty ?? false) {
-                    widget.phoneAuthProviderModel?.codeModelResponse =
-                        codeResponse;
+                    widget.phoneAuthProviderModel?.codeModelResponse = codeResponse;
                   }
                   return Text.rich(
                     TextSpan(
@@ -215,7 +217,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                       },
                     );
                     _signupBloc.add(
-                      SignUpEvent.createUser(
+                      EmailSignUpEvent.createUser(
                         userData: widget.userData ?? UserData(),
                         phoneAuthProviderModel: widget.phoneAuthProviderModel,
                         authType: AuthType.PHONE,

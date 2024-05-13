@@ -2,11 +2,14 @@ import 'package:create_doc/setting/widgets/settings_text_button.dart';
 import 'package:create_doc/util/app_images.dart';
 import 'package:create_doc/util/app_strings.dart';
 import 'package:create_doc/util/logger.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../auth/presentaion/signup/signup_page_tab.dart';
 import '../util/common_icon_button.dart';
+import '../util/shered_preferences.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -76,8 +79,18 @@ class _SettingsState extends State<Settings> {
                 ),
                 Gap(20.h),
                 SettingTextButton(
-                  onTap: () {
+                  onTap: () async {
                     Logger.data("On tap data is ");
+                    await FirebaseAuth.instance.signOut().then((value){
+                      PreferencesShared.clearAllData();
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignUpPageTab(),
+                        ),
+                        (route) => false,
+                      );
+                    });
                   },
                   icon: AppImages.logout,
                   text:AppString.logOut,

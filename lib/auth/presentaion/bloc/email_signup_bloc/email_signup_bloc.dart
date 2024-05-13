@@ -10,16 +10,16 @@ import '../../../../util/logger.dart';
 import '../../../domain/signup_access_services.dart';
 import '../../../model/user_data.dart';
 
-part 'signup_event.dart';
-part 'signup_state.dart';
-part 'signup_bloc.freezed.dart';
+part 'email_signup_event.dart';
+part 'email_signup_state.dart';
+part 'email_signup_bloc.freezed.dart';
 
 @injectable
-class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
+class EmailSignUpBloc extends Bloc<EmailSignUpEvent, EmailSignUpState> {
   final SignUpAccessServices _signUpAccessServices;
 
-  SignUpBloc(this._signUpAccessServices) : super(SignUpState.initial()) {
-    on<SignUpEvent>((SignUpEvent event, Emitter<SignUpState> emit) async {
+  EmailSignUpBloc(this._signUpAccessServices) : super(EmailSignUpState.initial()) {
+    on<EmailSignUpEvent>((EmailSignUpEvent event, Emitter<EmailSignUpState> emit) async {
       await event.when(
           createUser: (UserData userData, AuthType authType,PhoneAuthProviderModel? phoneAuthProviderModel) =>
               createUser(emit, userData, authType,phoneAuthProviderModel));
@@ -27,7 +27,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   }
 
   Future<dynamic> createUser(
-      Emitter<SignUpState> emit, UserData userData, AuthType authType,PhoneAuthProviderModel? phoneAuthProviderModel) async {
+      Emitter<EmailSignUpState> emit, UserData userData, AuthType authType,PhoneAuthProviderModel? phoneAuthProviderModel) async {
     Logger.data("Create User Function in bloc ${userData.toJson()}");
     Logger.data("Create User Function in bloc 1 $authType");
     Logger.data("Create User Function in bloc 1 ${phoneAuthProviderModel?.toJson()}");

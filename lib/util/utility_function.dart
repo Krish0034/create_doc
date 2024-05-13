@@ -3,10 +3,22 @@ import 'dart:async';
 import 'package:create_doc/util/logger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import '../core/error_data.dart';
 
 class UtilFunction
 {
+    bool? validateFields(List<TextEditingController?> controllers) {
+    for (var controller in controllers) {
+      if (controller?.text.isEmpty == true) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+
+
   bool checkEmailVerification()
   {
     bool isEmailVerified=false;

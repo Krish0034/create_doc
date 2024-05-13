@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:create_doc/auth/presentaion/bloc/email_signup_bloc/email_signup_bloc.dart';
 import 'package:create_doc/auth/presentaion/signup/widget/user_details_fields.dart';
 import 'package:create_doc/util/common_dialog.dart';
 import 'package:create_doc/util/extences.dart';
@@ -22,11 +23,9 @@ import '../../../../util/common_text_style.dart';
 import '../../../../util/logger.dart';
 import '../../../../util/validator_fields.dart';
 import '../../../model/user_data.dart';
-import '../../bloc/signup_bloc/signup_bloc.dart';
 import '../../common/anothe_social_auth.dart';
 import '../../common/email_password_widget.dart';
 import '../../common/have_already_account.dart';
-import '../../common/search_location_page.dart';
 import '../../common/term_and_condition.dart';
 
 class SignUpEmailTabViews extends StatefulWidget {
@@ -45,10 +44,10 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
   late String strengthText = '';
   late bool strengthPasswordVisibility = false;
   late bool obscure = true;
-  late SignUpBloc _signupBloc;
+  late EmailSignUpBloc _signupBloc;
   @override
   void initState() {
-    _signupBloc = getIt<SignUpBloc>();
+    _signupBloc = getIt<EmailSignUpBloc>();
     super.initState();
   }
 
@@ -57,7 +56,7 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
     return BlocListener(
         bloc: _signupBloc,
         listener: (BuildContext context, state) {
-          if (state is SignUpState) {
+          if (state is EmailSignUpState) {
             UserData userData1 = state.userData.getOrElse(() => UserData());
             ErrorData? errorData = state.errorData;
             if (!state.userData.isNone()) {
@@ -89,6 +88,7 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
                         timer?.cancel();
                         PreferencesShared.setAccessToken(accessToken: userData1.uid,);
                         PreferencesShared.setUserEmailVerify(userEmailVerify: true);
+                        PreferencesShared.setUserData(userData: userData1);
                         Logger.data("User Email are verified");
                         Navigator.push(context, MaterialPageRoute(builder: (context) => const DashBordPage(),),);
                         // Navigator.push(context, MaterialPageRoute(builder: (context) => const SearchLocationPage(),),);
@@ -148,13 +148,19 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
                 alignment: Alignment.bottomCenter,
                 child: CommonButton(
                   onPressed: () {
-                    if (_validateFields()) {
+                    bool? isValid =UtilFunction().validateFields([
+                      nameController,
+                      userNameController,
+                      emailController,
+                      passwordController,
+                    ]);
+                    if ((isValid??false) && ValidatorFields.email(emailController.text.toString()) == true) {
                       String? fcmToken;
                       FirebaseMessaging.instance.getToken().then((token) {
                         Logger.data("token is $token");
                         fcmToken = token??'';
                       },);
-                      _signupBloc.add(SignUpEvent.createUser(
+                      _signupBloc.add(EmailSignUpEvent.createUser(
                         userData: UserData(
                           fullName: nameController.text.toString(),
                           username: userNameController.text.toString(),
@@ -176,7 +182,8 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
                         authType: AuthType.EMAIL,
                       ),
                       );
-                    } else {
+                    }
+                    else {
                       Logger.data("fields are not validate fully");
                     }
                   },
@@ -193,16 +200,6 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
         ),
     );
   }
-  bool _validateFields() {
-    if (nameController.text.isNotEmpty &&
-        userNameController.text.isNotEmpty &&
-        passwordController.text.isNotEmpty &&
-        emailController.text.isNotEmpty &&
-        ValidatorFields.email(emailController.text.toString()) == true) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+
 
 }
