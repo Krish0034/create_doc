@@ -2,6 +2,7 @@ import 'package:create_doc/util/app_images.dart';
 import 'package:create_doc/util/common_divider.dart';
 import 'package:create_doc/util/common_icon_button.dart';
 import 'package:create_doc/util/common_text_style.dart';
+import 'package:create_doc/util/shered_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -77,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     border: Border.all(color: Colors.black, width: 1.5.w),
                   ),
-
+                  child: Text("${PreferencesShared.getUserData()?.toJson()}"),
                 ),
               )
             ],

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,33 +49,38 @@ class _LoginPhoneTabViewState extends State<LoginPhoneTabView> {
     return BlocListener(
       bloc: _phoneAuthBloc,
       listener: (BuildContext context, state) {
-        if(state is PhoneAuthState)
-        {
-          CodeModelResponse codeModelResponse = state.codeModelResponse.getOrElse(() => CodeModelResponse());
+        if (state is PhoneAuthState) {
+          CodeModelResponse codeModelResponse = state.codeModelResponse
+              .getOrElse(() => CodeModelResponse());
           ErrorData? errorData = state.errorData;
           if (!state.codeModelResponse.isNone()) {
-            Logger.data("after creating user is: ${codeModelResponse.toJson()}");
-            PhoneAuthProviderModel phoneAuthProviderModel= PhoneAuthProviderModel()
-              ..codeModelResponse=codeModelResponse
-              ..otpCode='';
-            Logger.data("after creating user is phone auth model: ${phoneAuthProviderModel.codeModelResponse?.toJson()}");
+            Logger.data(
+                "after creating user is: ${codeModelResponse.toJson()}");
+            PhoneAuthProviderModel phoneAuthProviderModel = PhoneAuthProviderModel()
+              ..codeModelResponse = codeModelResponse
+              ..otpCode = '';
+            Logger.data(
+                "after Login user is UserData model: ${userData?.toJson()}");
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => OtpVerificationPage(
-                  phoneAuthProviderModel:phoneAuthProviderModel,
-                ),
+                builder: (context) =>
+                    OtpVerificationPage(
+                      pageType:"LogInPage",
+                      userData: userData,
+                      phoneAuthProviderModel: phoneAuthProviderModel,
+                    ),
               ),
             );
-
           }
-          else{
+          else {
             if (errorData is HttpUnknownErrorData) {
               String errorMessage = errorData.message;
-              if (errorMessage == '[firebase_auth/invalid-phone-number] Invalid format.') {
+              if (errorMessage ==
+                  '[firebase_auth/invalid-phone-number] Invalid format.') {
                 errorMessage = "Invalid format.";
               }
-              else{
+              else {
                 errorMessage = "Internal Server Error";
               }
               CommonDialog.commonDialogOk(
@@ -86,7 +92,6 @@ class _LoginPhoneTabViewState extends State<LoginPhoneTabView> {
                 width: 600.w,
               );
             }
-
           }
         }
       },
@@ -95,14 +100,18 @@ class _LoginPhoneTabViewState extends State<LoginPhoneTabView> {
           SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
             padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
+                bottom: MediaQuery
+                    .of(context)
+                    .viewInsets
+                    .bottom),
             child: Column(
               children: [
                 PhoneTextField(
                   phoneController: phoneController,
                   onChange: (PhoneNumber value) {
                     Logger.data(
-                        "phone number is on phone view page: ${value.completeNumber}");
+                        "phone number is on phone view page: ${value
+                            .completeNumber}");
                     setState(() {
                       phoneNumberWithCode = value.completeNumber;
                     });
@@ -123,15 +132,32 @@ class _LoginPhoneTabViewState extends State<LoginPhoneTabView> {
               alignment: Alignment.bottomCenter,
               child: CommonButton(
                 onPressed: () {
-                  bool? isValid =UtilFunction().validateFields([
+                  bool? isValid = UtilFunction().validateFields([
                     phoneController,
                   ]);
-                  if (isValid??false)
-                  {
+                  if (isValid ?? false) {
+                    String? fcmToken;
+                    FirebaseMessaging.instance.getToken().then((token) {
+                      Logger.data("token is $token");
+                      fcmToken = token ?? '';
+                    });
                     _phoneAuthBloc.add(PhoneAuthEvent.sendOtp(
                       phoneNumberWithCode: phoneNumberWithCode,
                       authType: AuthType.PHONE,
                     ));
+                    userData = UserData(
+                      updatedDate: DateTime
+                          .now()
+                          .millisecondsSinceEpoch,
+                      phone: phoneNumberWithCode,
+                      uid: FirebaseAuth.instance.currentUser?.uid ?? '',
+                      usageReminderDate: DateTime
+                          .now()
+                          .millisecondsSinceEpoch,
+                      image: '',
+                      fcm: fcmToken,
+                      status: true,
+                    );
                   } else {
                     Logger.data("fields are not validate fully");
                   }

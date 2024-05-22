@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:create_doc/auth/model/code_model_response.dart';
 import 'package:create_doc/auth/model/user_data.dart';
+import 'package:create_doc/auth/presentaion/bloc/get_user_data_bloc/get_user_data_bloc.dart';
 import 'package:create_doc/auth/presentaion/bloc/phone_auth_bloc/phone_auth_bloc.dart';
 import 'package:create_doc/auth/presentaion/common/search_location_page.dart';
 import 'package:create_doc/util/extences.dart';
@@ -30,10 +31,11 @@ import 'otp_box_field.dart';
 
 class OtpVerificationPage extends StatefulWidget {
   final UserData? userData;
+  final String? pageType;
   final PhoneAuthProviderModel? phoneAuthProviderModel;
 
   const OtpVerificationPage(
-      {super.key, this.userData, this.phoneAuthProviderModel});
+      {super.key, this.userData, this.phoneAuthProviderModel,this.pageType});
 
   @override
   State<OtpVerificationPage> createState() => _OtpVerificationPageState();
@@ -43,6 +45,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
   final TextEditingController otpController = TextEditingController();
   late EmailSignUpBloc _signupBloc;
   late PhoneAuthBloc _phoneAuthBloc;
+  late GetUserDataBloc _getUserDataBloc;
   late String otpValue = '';
   late Timer _timer;
   int _start = 60;
@@ -53,6 +56,7 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
     startTimer();
     _signupBloc = getIt<EmailSignUpBloc>();
     _phoneAuthBloc = getIt<PhoneAuthBloc>();
+    _getUserDataBloc = getIt<GetUserDataBloc>();
     super.initState();
   }
 
@@ -68,63 +72,72 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
         ),
         backgroundColor: AppColors.whiteColor,
       ),
-      body: BlocListener(
-        bloc: _signupBloc,
-        listener: (context, state) {
-          if (state is EmailSignUpState) {
-            UserData userData1 = state.userData.getOrElse(() => UserData());
-            ErrorData? errorData = state.errorData;
-            if (!state.userData.isNone()) {
-              Logger.data("after creating user is: ${userData1.toJson()}");
-              int? timestamp = userData1.createdDate;
-              DateTime dateTime =
-                  DateTime.fromMillisecondsSinceEpoch(timestamp ?? 0);
-              Logger.data('Formatted Date: ${dateTime.formattedDate()}');
-              Logger.data('Formatted Time: ${dateTime.formattedTime()}');
-              CommonDialog.commonDialogOk(context,
-                  message: AppString.yourOtpVerify,
-                  email: userData1.phone,
-                  title: AppString.otpVerifySuccess,
-                  buttonText: AppString.next,
-                  height: 350.h,
-                  width: 600.w,
-                  buttonWidth: 200.w, onPressed: () async {
-                PreferencesShared.setAccessToken(
-                  accessToken: userData1.uid,
-                );
-                PreferencesShared.setUserEmailVerify(userEmailVerify: true);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const DashBordPage(),
-                  ),
-                );
-                /*Navigator.push(
+      body: MultiBlocListener(
+        listeners: [
+          BlocListener(
+            bloc: _signupBloc,
+            listener: (context, state) {
+              if (state is EmailSignUpState) {
+                UserData userData1 = state.userData.getOrElse(() => UserData());
+                ErrorData? errorData = state.errorData;
+                if (!state.userData.isNone()) {
+                  Logger.data("after creating user is: ${userData1.toJson()}");
+                  int? timestamp = userData1.createdDate;
+                  DateTime dateTime =
+                      DateTime.fromMillisecondsSinceEpoch(timestamp ?? 0);
+                  Logger.data('Formatted Date: ${dateTime.formattedDate()}');
+                  Logger.data('Formatted Time: ${dateTime.formattedTime()}');
+                  CommonDialog.commonDialogOk(context,
+                      message: AppString.yourOtpVerify,
+                      email: userData1.phone,
+                      title: AppString.otpVerifySuccess,
+                      buttonText: AppString.next,
+                      height: 350.h,
+                      width: 600.w,
+                      buttonWidth: 200.w, onPressed: () async {
+                    PreferencesShared.setAccessToken(
+                      accessToken: userData1.uid,
+                    );
+                    PreferencesShared.setUserEmailVerify(userEmailVerify: true);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DashBordPage(),
+                      ),
+                    );
+                    /*Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const SearchLocationPage(),
                   ),
                 );*/
-              });
-            }
-            else {
-              if (errorData is HttpUnknownErrorData) {
-                String errorMessage = errorData.message;
-                if (errorMessage == 'email-already-in-use') {
-                  errorMessage = "Email already In Use.";
+                  });
+                } else {
+                  if (errorData is HttpUnknownErrorData) {
+                    String errorMessage = errorData.message;
+                    if (errorMessage == 'email-already-in-use') {
+                      errorMessage = "Email already In Use.";
+                    }
+                    CommonDialog.commonDialogOk(
+                      context,
+                      message: errorMessage,
+                      title: AppString.alertText,
+                      buttonText: AppString.okButtonText,
+                      height: 250.h,
+                      width: 600.w,
+                    );
+                  }
                 }
-                CommonDialog.commonDialogOk(
-                  context,
-                  message: errorMessage,
-                  title: AppString.alertText,
-                  buttonText: AppString.okButtonText,
-                  height: 250.h,
-                  width: 600.w,
-                );
               }
-            }
-          }
-        },
+            },
+          ),
+          BlocListener(
+            bloc: _getUserDataBloc,
+            listener: (context, state) {
+
+            },
+          ),
+        ],
         child: Padding(
           padding: EdgeInsets.only(left: 15.w, right: 15.w),
           child: Column(
@@ -160,12 +173,12 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
               ),
               BlocBuilder<PhoneAuthBloc, PhoneAuthState>(
                 bloc: _phoneAuthBloc,
-                builder: (context, state)
-                {
+                builder: (context, state) {
                   CodeModelResponse codeResponse = state.codeModelResponse
                       .getOrElse(() => CodeModelResponse());
                   if (codeResponse.verificationId?.isNotEmpty ?? false) {
-                    widget.phoneAuthProviderModel?.codeModelResponse = codeResponse;
+                    widget.phoneAuthProviderModel?.codeModelResponse =
+                        codeResponse;
                   }
                   return Text.rich(
                     TextSpan(
@@ -189,7 +202,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                             ..onTap = () {
                               _phoneAuthBloc.add(
                                 PhoneAuthEvent.sendOtp(
-                                  phoneNumberWithCode: widget.userData?.phone??'',
+                                  phoneNumberWithCode:
+                                      widget.userData?.phone ?? '',
                                   authType: AuthType.PHONE,
                                 ),
                               );
@@ -216,13 +230,19 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                         fcmToken = token ?? '';
                       },
                     );
-                    _signupBloc.add(
-                      EmailSignUpEvent.createUser(
-                        userData: widget.userData ?? UserData(),
-                        phoneAuthProviderModel: widget.phoneAuthProviderModel,
-                        authType: AuthType.PHONE,
-                      ),
-                    );
+                    if(widget.pageType?.trim()=="LogInPage")
+                    {
+                      _getUserDataBloc.add(GetUserDataEvent.getUserDataByPhone(phoneNumber: widget.userData?.phone??'', authType: AuthType.PHONE,phoneAuthProviderModel:widget.phoneAuthProviderModel));
+                    }
+                    else{
+                      _signupBloc.add(
+                        EmailSignUpEvent.createUser(
+                          userData: widget.userData ?? UserData(),
+                          phoneAuthProviderModel: widget.phoneAuthProviderModel,
+                          authType: AuthType.PHONE,
+                        ),
+                      );
+                    }
                   } else {
                     Logger.data("fields are not validate fully");
                   }

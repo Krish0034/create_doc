@@ -106,7 +106,7 @@ class CustomTextField extends StatelessWidget {
           inputFormatters: isInputFormatters == true ? null : inputFormatters ?? [],
           autovalidateMode: autoValidateMode ?? AutovalidateMode.onUserInteraction,
           cursorColor: AppColors.backButtonColor,
-          textInputAction: textInputAction ?? TextInputAction.none,
+          textInputAction: textInputAction,
           initialValue: initialText,
           autocorrect: false,
           enableSuggestions: false,

@@ -38,6 +38,7 @@ class SignUpServicesImpl extends SignUpServices {
               Logger.data("after checking data is user: $user");
               userData.uid = user.uid;
               PreferencesShared.setUuid(uuid: userData.uid);
+              PreferencesShared.setUserData(userData: userData);
               userData.authType = authType.toString();
               Logger.data("after set data is UserData: ${userData.toJson()}");
             }
@@ -58,6 +59,7 @@ class SignUpServicesImpl extends SignUpServices {
             Logger.data("after checking data is user: $user");
             userData.uid = user.uid;
             PreferencesShared.setUuid(uuid: userData.uid);
+            PreferencesShared.setUserData(userData: userData);
             userData.authType = authType.toString();
             Logger.data("after set data is UserData: ${userData.toJson()}");
           }

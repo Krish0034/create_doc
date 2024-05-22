@@ -3,7 +3,6 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/error_data.dart';
-import '../../../../util/api_urls.dart';
 import '../../../../util/auth_type.dart';
 import '../../../model/user_data.dart';
 import '../../repositories/signin_repository.dart';

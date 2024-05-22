@@ -50,36 +50,40 @@ class _SignUpPhoneTabViewState extends State<SignUpPhoneTabView> {
   Widget build(BuildContext context) {
     return BlocListener(
       bloc: _phoneAuthBloc,
-      listener: (BuildContext context, state)
-      {
-        if(state is PhoneAuthState)
-        {
-          CodeModelResponse codeModelResponse = state.codeModelResponse.getOrElse(() => CodeModelResponse());
+      listener: (BuildContext context, state) {
+        if (state is PhoneAuthState) {
+          CodeModelResponse codeModelResponse = state.codeModelResponse
+              .getOrElse(() => CodeModelResponse());
           ErrorData? errorData = state.errorData;
           if (!state.codeModelResponse.isNone()) {
-            Logger.data("after creating user is: ${codeModelResponse.toJson()}");
-            PhoneAuthProviderModel phoneAuthProviderModel= PhoneAuthProviderModel()
-                                  ..codeModelResponse=codeModelResponse
-                                  ..otpCode='';
-            Logger.data("after creating user is phone auth model: ${phoneAuthProviderModel.codeModelResponse?.toJson()}");
+            Logger.data(
+                "after creating user is: ${codeModelResponse.toJson()}");
+            PhoneAuthProviderModel phoneAuthProviderModel = PhoneAuthProviderModel()
+              ..codeModelResponse = codeModelResponse
+              ..otpCode = '';
+            Logger.data(
+                "after creating user is phone auth model: ${phoneAuthProviderModel
+                    .codeModelResponse?.toJson()}");
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => OtpVerificationPage(
-                    userData: userData,
-                    phoneAuthProviderModel:phoneAuthProviderModel,
-                ),
+                builder: (context) =>
+                    OtpVerificationPage(
+                      pageType: "SignUpPage",
+                      userData: userData,
+                      phoneAuthProviderModel:phoneAuthProviderModel,
+                    ),
               ),
             );
-
           }
-          else{
+          else {
             if (errorData is HttpUnknownErrorData) {
               String errorMessage = errorData.message;
-              if (errorMessage == '[firebase_auth/invalid-phone-number] Invalid format.') {
+              if (errorMessage ==
+                  '[firebase_auth/invalid-phone-number] Invalid format.') {
                 errorMessage = "Invalid format.";
               }
-              else{
+              else {
                 errorMessage = "Internal Server Error";
               }
               CommonDialog.commonDialogOk(
@@ -91,16 +95,18 @@ class _SignUpPhoneTabViewState extends State<SignUpPhoneTabView> {
                 width: 600.w,
               );
             }
-
           }
-        }  
+        }
       },
       child: Stack(
         children: [
           SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
             padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
+                bottom: MediaQuery
+                    .of(context)
+                    .viewInsets
+                    .bottom),
             child: Column(
               children: [
                 UserDetailsFields(
@@ -113,7 +119,8 @@ class _SignUpPhoneTabViewState extends State<SignUpPhoneTabView> {
                   phoneController: phoneController,
                   onChange: (PhoneNumber value) {
                     Logger.data(
-                        "phone number is on phone view page: ${value.completeNumber}");
+                        "phone number is on phone view page: ${value
+                            .completeNumber}");
                     setState(() {
                       phoneNumberWithCode = value.completeNumber;
                     });
@@ -135,13 +142,13 @@ class _SignUpPhoneTabViewState extends State<SignUpPhoneTabView> {
               alignment: Alignment.bottomCenter,
               child: CommonButton(
                 onPressed: () {
-                  bool? isValid =UtilFunction().validateFields([
+                  bool? isValid = UtilFunction().validateFields([
                     phoneController,
                     nameController,
                     userNameController,
                   ]);
 
-                  if (isValid??false) {
+                  if (isValid ?? false) {
                     String? fcmToken;
                     FirebaseMessaging.instance.getToken().then((token) {
                       Logger.data("token is $token");
@@ -156,14 +163,20 @@ class _SignUpPhoneTabViewState extends State<SignUpPhoneTabView> {
                       username: userNameController.text.toString(),
                       email: nameController.text.toString(),
                       password: "",
-                      createdDate: DateTime.now().millisecondsSinceEpoch,
+                      createdDate: DateTime
+                          .now()
+                          .millisecondsSinceEpoch,
                       createdBy: nameController.text.toString(),
-                      updatedDate: DateTime.now().millisecondsSinceEpoch,
+                      updatedDate: DateTime
+                          .now()
+                          .millisecondsSinceEpoch,
                       updatedBy: nameController.text.toString(),
                       instagram: '',
                       phone: phoneNumberWithCode,
                       uid: '',
-                      usageReminderDate: DateTime.now().millisecondsSinceEpoch,
+                      usageReminderDate: DateTime
+                          .now()
+                          .millisecondsSinceEpoch,
                       image: '',
                       fcm: fcmToken,
                       status: true,
