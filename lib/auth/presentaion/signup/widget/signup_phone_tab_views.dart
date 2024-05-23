@@ -48,155 +48,160 @@ class _SignUpPhoneTabViewState extends State<SignUpPhoneTabView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener(
-      bloc: _phoneAuthBloc,
-      listener: (BuildContext context, state) {
-        if (state is PhoneAuthState) {
-          CodeModelResponse codeModelResponse = state.codeModelResponse
-              .getOrElse(() => CodeModelResponse());
-          ErrorData? errorData = state.errorData;
-          if (!state.codeModelResponse.isNone()) {
-            Logger.data(
-                "after creating user is: ${codeModelResponse.toJson()}");
-            PhoneAuthProviderModel phoneAuthProviderModel = PhoneAuthProviderModel()
-              ..codeModelResponse = codeModelResponse
-              ..otpCode = '';
-            Logger.data(
-                "after creating user is phone auth model: ${phoneAuthProviderModel
-                    .codeModelResponse?.toJson()}");
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    OtpVerificationPage(
-                      pageType: "SignUpPage",
-                      userData: userData,
-                      phoneAuthProviderModel:phoneAuthProviderModel,
-                    ),
-              ),
-            );
-          }
-          else {
-            if (errorData is HttpUnknownErrorData) {
-              String errorMessage = errorData.message;
-              if (errorMessage ==
-                  '[firebase_auth/invalid-phone-number] Invalid format.') {
-                errorMessage = "Invalid format.";
-              }
-              else {
-                errorMessage = "Internal Server Error";
-              }
-              CommonDialog.commonDialogOk(
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: BlocListener(
+        bloc: _phoneAuthBloc,
+        listener: (BuildContext context, state) {
+          if (state is PhoneAuthState) {
+            CodeModelResponse codeModelResponse = state.codeModelResponse
+                .getOrElse(() => CodeModelResponse());
+            ErrorData? errorData = state.errorData;
+            if (!state.codeModelResponse.isNone()) {
+              Logger.data(
+                  "after creating user is: ${codeModelResponse.toJson()}");
+              PhoneAuthProviderModel phoneAuthProviderModel = PhoneAuthProviderModel()
+                ..codeModelResponse = codeModelResponse
+                ..otpCode = '';
+              Logger.data(
+                  "after creating user is phone auth model: ${phoneAuthProviderModel
+                      .codeModelResponse?.toJson()}");
+              Navigator.push(
                 context,
-                message: errorMessage,
-                title: AppString.alertText,
-                buttonText: AppString.okButtonText,
-                height: 250.h,
-                width: 600.w,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      OtpVerificationPage(
+                        pageType: "SignUpPage",
+                        userData: userData,
+                        phoneAuthProviderModel:phoneAuthProviderModel,
+                      ),
+                ),
               );
             }
+            else {
+              if (errorData is HttpUnknownErrorData) {
+                String errorMessage = errorData.message;
+                if (errorMessage ==
+                    '[firebase_auth/invalid-phone-number] Invalid format.') {
+                  errorMessage = "Invalid format.";
+                }
+                else {
+                  errorMessage = "Internal Server Error";
+                }
+                CommonDialog.commonDialogOk(
+                  context,
+                  message: errorMessage,
+                  title: AppString.alertText,
+                  buttonText: AppString.okButtonText,
+                  height: 250.h,
+                  width: 600.w,
+                );
+              }
+            }
           }
-        }
-      },
-      child: Stack(
-        children: [
-          SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
-            padding: EdgeInsets.only(
-                bottom: MediaQuery
-                    .of(context)
-                    .viewInsets
-                    .bottom),
-            child: Column(
-              children: [
-                UserDetailsFields(
-                  authType: AuthType.PHONE,
-                  nameController: nameController,
-                  userNameController: userNameController,
-                ),
-                Gap(20.h),
-                PhoneTextField(
-                  phoneController: phoneController,
-                  onChange: (PhoneNumber value) {
-                    Logger.data(
-                        "phone number is on phone view page: ${value
-                            .completeNumber}");
-                    setState(() {
-                      phoneNumberWithCode = value.completeNumber;
-                    });
-                  },
-                ),
-                Gap(05.h),
-                const TermAndCondition(),
-                Gap(40.h),
-                const AnotherSocialAuth(),
-                Gap(40.h),
-                const HaveAlreadyAccount(),
-                Gap(150.h),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 35.h),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: CommonButton(
-                onPressed: () {
-                  bool? isValid = UtilFunction().validateFields([
-                    phoneController,
-                    nameController,
-                    userNameController,
-                  ]);
-
-                  if (isValid ?? false) {
-                    String? fcmToken;
-                    FirebaseMessaging.instance.getToken().then((token) {
-                      Logger.data("token is $token");
-                      fcmToken = token ?? '';
-                    });
-                    _phoneAuthBloc.add(PhoneAuthEvent.sendOtp(
-                      phoneNumberWithCode: phoneNumberWithCode,
-                      authType: AuthType.PHONE,
-                    ));
-                    userData = UserData(
-                      fullName: nameController.text.toString(),
-                      username: userNameController.text.toString(),
-                      email: nameController.text.toString(),
-                      password: "",
-                      createdDate: DateTime
-                          .now()
-                          .millisecondsSinceEpoch,
-                      createdBy: nameController.text.toString(),
-                      updatedDate: DateTime
-                          .now()
-                          .millisecondsSinceEpoch,
-                      updatedBy: nameController.text.toString(),
-                      instagram: '',
-                      phone: phoneNumberWithCode,
-                      uid: '',
-                      usageReminderDate: DateTime
-                          .now()
-                          .millisecondsSinceEpoch,
-                      image: '',
-                      fcm: fcmToken,
-                      status: true,
-                    );
-                  }
-                  else {
-                    Logger.data("fields are not validate fully");
-                  }
-                },
-                width: 140,
-                height: 50,
-                borderColor: AppColors.backButtonColor.withOpacity(0.5),
-                btnColor: AppColors.redButtonColor,
-                textStyle: CommonTextStyle.normalStyle
-                    .copyWith(color: AppColors.whiteColor),
-                text: AppString.continueText,
+        },
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              physics: const ClampingScrollPhysics(),
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery
+                      .of(context)
+                      .viewInsets
+                      .bottom),
+              child: Column(
+                children: [
+                  UserDetailsFields(
+                    authType: AuthType.PHONE,
+                    nameController: nameController,
+                    userNameController: userNameController,
+                  ),
+                  Gap(20.h),
+                  PhoneTextField(
+                    phoneController: phoneController,
+                    onChange: (PhoneNumber value) {
+                      Logger.data(
+                          "phone number is on phone view page: ${value
+                              .completeNumber}");
+                      setState(() {
+                        phoneNumberWithCode = value.completeNumber;
+                      });
+                    },
+                  ),
+                  Gap(05.h),
+                  const TermAndCondition(),
+                  Gap(40.h),
+                  const AnotherSocialAuth(),
+                  Gap(40.h),
+                  const HaveAlreadyAccount(),
+                  Gap(150.h),
+                ],
               ),
             ),
-          )
-        ],
+            Padding(
+              padding: EdgeInsets.only(bottom: 35.h),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: CommonButton(
+                  onPressed: () {
+                    bool? isValid = UtilFunction().validateFields([
+                      phoneController,
+                      nameController,
+                      userNameController,
+                    ]);
+
+                    if (isValid ?? false) {
+                      String? fcmToken;
+                      FirebaseMessaging.instance.getToken().then((token) {
+                        Logger.data("token is $token");
+                        fcmToken = token ?? '';
+                      });
+                      _phoneAuthBloc.add(PhoneAuthEvent.sendOtp(
+                        phoneNumberWithCode: phoneNumberWithCode,
+                        authType: AuthType.PHONE,
+                      ));
+                      userData = UserData(
+                        fullName: nameController.text.toString(),
+                        username: userNameController.text.toString(),
+                        email: nameController.text.toString(),
+                        password: "",
+                        createdDate: DateTime
+                            .now()
+                            .millisecondsSinceEpoch,
+                        createdBy: nameController.text.toString(),
+                        updatedDate: DateTime
+                            .now()
+                            .millisecondsSinceEpoch,
+                        updatedBy: nameController.text.toString(),
+                        instagram: '',
+                        phone: phoneNumberWithCode,
+                        uid: '',
+                        usageReminderDate: DateTime
+                            .now()
+                            .millisecondsSinceEpoch,
+                        image: '',
+                        fcm: fcmToken,
+                        status: true,
+                      );
+                    }
+                    else {
+                      Logger.data("fields are not validate fully");
+                    }
+                  },
+                  width: 140,
+                  height: 50,
+                  borderColor: AppColors.backButtonColor.withOpacity(0.5),
+                  btnColor: AppColors.redButtonColor,
+                  textStyle: CommonTextStyle.normalStyle
+                      .copyWith(color: AppColors.whiteColor),
+                  text: AppString.continueText,
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

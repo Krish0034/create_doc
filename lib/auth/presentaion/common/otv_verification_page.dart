@@ -113,7 +113,8 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                 );*/
                   });
                 } else {
-                  if (errorData is HttpUnknownErrorData) {
+                  if (errorData is HttpUnknownErrorData)
+                  {
                     String errorMessage = errorData.message;
                     if (errorMessage == 'email-already-in-use') {
                       errorMessage = "Email already In Use.";
@@ -232,9 +233,11 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                     );
                     if(widget.pageType?.trim()=="LogInPage")
                     {
+                      Logger.data("Login Page Bloc are run");
                       _getUserDataBloc.add(GetUserDataEvent.getUserDataByPhone(phoneNumber: widget.userData?.phone??'', authType: AuthType.PHONE,phoneAuthProviderModel:widget.phoneAuthProviderModel));
                     }
                     else{
+                      Logger.data("Signup Page Bloc are run");
                       _signupBloc.add(
                         EmailSignUpEvent.createUser(
                           userData: widget.userData ?? UserData(),

@@ -80,7 +80,8 @@ class PreferencesShared
   static UserData? getUserData() {
     final jsonString = _preferences.getString(_userData);
     if (jsonString != null && jsonString.isNotEmpty) {
-      return UserData.fromJson(jsonString as Map<String,dynamic>);
+      final Map<String, dynamic> jsonMap = json.decode(jsonString);
+      return UserData.fromJson(jsonMap);
     }
     return null;
   }

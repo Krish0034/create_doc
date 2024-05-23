@@ -46,98 +46,103 @@ class _LoginEmailTabViewsState extends State<LoginEmailTabViews> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener(
-      bloc: _emailSignInBloc,
-      listener: (BuildContext context, state)
-      {
-        if (state is EmailSignInState) {
-          UserData userData1 = state.userData.getOrElse(() => UserData());
-          ErrorData? errorData = state.errorData;
-          if (!state.userData.isNone())
-          {
-            PreferencesShared.setAccessToken(accessToken: userData1.uid,);
-            PreferencesShared.setUserEmailVerify(userEmailVerify: true);
-            PreferencesShared.setUserData(userData: userData1);
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const DashBordPage(),),);
-          }
-          else{
-            if (errorData is HttpUnknownErrorData) {
-              String errorMessage =UtilFunction().formatErrorMessage(errorData.message);
-              CommonDialog.commonDialogOk(
-                context,
-                message: errorMessage,
-                title: AppString.alertText,
-                buttonText: AppString.okButtonText,
-                height: 250.h,
-                width: 600.w,
-              );
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: BlocListener(
+        bloc: _emailSignInBloc,
+        listener: (BuildContext context, state)
+        {
+          if (state is EmailSignInState) {
+            UserData userData1 = state.userData.getOrElse(() => UserData());
+            ErrorData? errorData = state.errorData;
+            if (!state.userData.isNone())
+            {
+              PreferencesShared.setAccessToken(accessToken: userData1.uid,);
+              PreferencesShared.setUserEmailVerify(userEmailVerify: true);
+              PreferencesShared.setUserData(userData: userData1);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const DashBordPage(),),);
+            }
+            else{
+              if (errorData is HttpUnknownErrorData) {
+                String errorMessage =UtilFunction().formatErrorMessage(errorData.message);
+                CommonDialog.commonDialogOk(
+                  context,
+                  message: errorMessage,
+                  title: AppString.alertText,
+                  buttonText: AppString.okButtonText,
+                  height: 250.h,
+                  width: 600.w,
+                );
+              }
             }
           }
-        }
-      },
-      child: Stack(
-        children: [
-          SingleChildScrollView(
-            physics: const PageScrollPhysics(),
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Column(
-              children: <Widget>[
-                EmailPasswordWidget(
-                  emailController: emailController,
-                  passwordController: passwordController,
-                ),
-                const Gap(10),
-                const Align(
-                  alignment: Alignment.topRight,
-                  child: Text("forget password"),
-                ),
-                const Gap(10),
-                const TermAndCondition(),
-                const Gap(40),
-                const AnotherSocialAuth(),
-                const Gap(40),
-                const DoNotHaveAlreadyAccount()
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 35.h),
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: CommonButton(
-                onPressed: () 
-                {
-                  bool? isValid =UtilFunction().validateFields([
-                    emailController,
-                    passwordController
-                  ]);
-                  if (isValid??false)
-                    {
-                      _emailSignInBloc.add(
-                      EmailSignInEvent.userLogin(
-                        userEmail: emailController.text,
-                        password: passwordController.text,
-                        authType: AuthType.EMAIL,
-                      ),
-                    );
-                  }
-                  else
-                    {
-                      Logger.data("fields are not validate fully");
-                    }
-                },
-                width: 140,
-                height: 50,
-                borderColor: AppColors.backButtonColor.withOpacity(0.5),
-                btnColor: AppColors.redButtonColor,
-                textStyle: CommonTextStyle.normalStyle
-                    .copyWith(color: AppColors.whiteColor),
-                text: AppString.continueText,
+        },
+        child: Stack(
+          children: [
+            SingleChildScrollView(
+              physics: const PageScrollPhysics(),
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: Column(
+                children: <Widget>[
+                  EmailPasswordWidget(
+                    emailController: emailController,
+                    passwordController: passwordController,
+                  ),
+                  const Gap(10),
+                  const Align(
+                    alignment: Alignment.topRight,
+                    child: Text("forget password"),
+                  ),
+                  const Gap(10),
+                  const TermAndCondition(),
+                  const Gap(40),
+                  const AnotherSocialAuth(),
+                  const Gap(40),
+                  const DoNotHaveAlreadyAccount()
+                ],
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.only(bottom: 35.h),
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: CommonButton(
+                  onPressed: ()
+                  {
+                    bool? isValid =UtilFunction().validateFields([
+                      emailController,
+                      passwordController
+                    ]);
+                    if (isValid??false)
+                      {
+                        _emailSignInBloc.add(
+                        EmailSignInEvent.userLogin(
+                          userEmail: emailController.text,
+                          password: passwordController.text,
+                          authType: AuthType.EMAIL,
+                        ),
+                      );
+                    }
+                    else
+                      {
+                        Logger.data("fields are not validate fully");
+                      }
+                  },
+                  width: 140,
+                  height: 50,
+                  borderColor: AppColors.backButtonColor.withOpacity(0.5),
+                  btnColor: AppColors.redButtonColor,
+                  textStyle: CommonTextStyle.normalStyle
+                      .copyWith(color: AppColors.whiteColor),
+                  text: AppString.continueText,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
