@@ -1,6 +1,6 @@
-import 'package:create_doc/auth/model/user_data.dart';
-import 'package:create_doc/core/error_data.dart';
-import 'package:create_doc/util/auth_type.dart';
+import '../../../model/user_data.dart';
+import '../../../../core/error_data.dart';
+import '../../../../util/auth_type.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,9 +29,9 @@ class GetUserDataServicesImpl extends GetUserDataServices
         String? userId;
         Logger.data("phone auth credential in services ${phoneAuthProviderModel?.codeModelResponse?.verificationId??''}");
         Logger.data("phone auth credential in services sms code ${phoneAuthProviderModel?.otpCode??""}");
-        PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: phoneAuthProviderModel?.codeModelResponse?.verificationId??'', smsCode: phoneAuthProviderModel?.otpCode??"");
+        final PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: phoneAuthProviderModel?.codeModelResponse?.verificationId??'', smsCode: phoneAuthProviderModel?.otpCode??"");
         await _authInstances.signInWithCredential(credential).then((value)async {
-          Logger.data("createUserWithPhoneNumber is ${value.toString()}");
+          Logger.data("createUserWithPhoneNumber is $value");
           final user = value.user;
           if (user != null) {
             Logger.data("after checking data is user: $user");
@@ -53,7 +53,7 @@ class GetUserDataServicesImpl extends GetUserDataServices
       return Left(UtilFunction().handleDioError(exception));
     } catch (e) {
       Logger.data("Exception is: $e");
-      String? error = e.toString();
+      final String error = e.toString();
       return Left(ErrorData.httpUnknownError(error));
     }
   }

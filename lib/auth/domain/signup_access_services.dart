@@ -1,4 +1,4 @@
-import 'package:create_doc/core/error_data.dart';
+import '../../core/error_data.dart';
 import 'package:dartz/dartz.dart';
 
 

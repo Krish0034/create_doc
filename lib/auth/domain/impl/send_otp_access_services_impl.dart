@@ -1,6 +1,6 @@
 
-import 'package:create_doc/auth/data/services/send_otp_services.dart';
-import 'package:create_doc/core/error_data.dart';
+import '../../data/services/send_otp_services.dart';
+import '../../../core/error_data.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../util/auth_type.dart';
@@ -17,7 +17,7 @@ class SendOtpAccessServicesImpl extends SendOtpAccessServices
   @override
   Future<Either<ErrorData, CodeModelResponse>> sendOtp({required String phoneNumberWithCode, required AuthType authType}) async
   {
-    return await _sendOtpServices.sendOtp(phoneNumberWithCode: phoneNumberWithCode, authType: authType);
+    return _sendOtpServices.sendOtp(phoneNumberWithCode: phoneNumberWithCode, authType: authType);
   }
 
 }

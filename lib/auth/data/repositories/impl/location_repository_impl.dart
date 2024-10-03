@@ -1,4 +1,4 @@
-import 'package:create_doc/util/api_urls.dart';
+import '../../../../util/api_urls.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/http.dart';

@@ -12,5 +12,3 @@ class EmailSignUpState with _$EmailSignUpState
       EmailSignUpState(userData: none());
 
 }
-
-

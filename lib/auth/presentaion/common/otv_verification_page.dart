@@ -1,11 +1,10 @@
 import 'dart:async';
 
-import 'package:create_doc/auth/model/code_model_response.dart';
-import 'package:create_doc/auth/model/user_data.dart';
-import 'package:create_doc/auth/presentaion/bloc/get_user_data_bloc/get_user_data_bloc.dart';
-import 'package:create_doc/auth/presentaion/bloc/phone_auth_bloc/phone_auth_bloc.dart';
-import 'package:create_doc/auth/presentaion/common/search_location_page.dart';
-import 'package:create_doc/util/extences.dart';
+import '../../model/code_model_response.dart';
+import '../../model/user_data.dart';
+import '../bloc/get_user_data_bloc/get_user_data_bloc.dart';
+import '../bloc/phone_auth_bloc/phone_auth_bloc.dart';
+import '../../../util/extences.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -78,12 +77,12 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
             bloc: _signupBloc,
             listener: (context, state) {
               if (state is EmailSignUpState) {
-                UserData userData1 = state.userData.getOrElse(() => UserData());
-                ErrorData? errorData = state.errorData;
+                final UserData userData1 = state.userData.getOrElse(() => UserData());
+                final ErrorData? errorData = state.errorData;
                 if (!state.userData.isNone()) {
                   Logger.data("after creating user is: ${userData1.toJson()}");
-                  int? timestamp = userData1.createdDate;
-                  DateTime dateTime =
+                  final int? timestamp = userData1.createdDate;
+                  final DateTime dateTime =
                       DateTime.fromMillisecondsSinceEpoch(timestamp ?? 0);
                   Logger.data('Formatted Date: ${dateTime.formattedDate()}');
                   Logger.data('Formatted Time: ${dateTime.formattedTime()}');
@@ -224,11 +223,9 @@ class _OtpVerificationPageState extends State<OtpVerificationPage> {
                         "phoneAuth provider model data is1 ${widget.phoneAuthProviderModel?.codeModelResponse?.toJson()}");
                     Logger.data(
                         "phoneAuth provider model data is2 ${widget.phoneAuthProviderModel?.toJson()}");
-                    String? fcmToken;
                     FirebaseMessaging.instance.getToken().then(
                       (token) {
                         Logger.data("token is $token");
-                        fcmToken = token ?? '';
                       },
                     );
                     if(widget.pageType?.trim()=="LogInPage")

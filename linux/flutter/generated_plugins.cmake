@@ -3,6 +3,8 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  db_username_suggester
+  rive_common
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

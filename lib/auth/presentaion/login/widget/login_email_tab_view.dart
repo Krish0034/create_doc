@@ -15,7 +15,6 @@ import '../../../../util/common_text_style.dart';
 import '../../../../util/logger.dart';
 import '../../../../util/shered_preferences.dart';
 import '../../../../util/utility_function.dart';
-import '../../../../util/validator_fields.dart';
 import '../../../model/user_data.dart';
 import '../../common/anothe_social_auth.dart';
 import '../../common/dont_have_already_account.dart';

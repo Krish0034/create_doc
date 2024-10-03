@@ -11,4 +11,3 @@ class GetUserDataState with _$GetUserDataState
   factory GetUserDataState.initial() =>
       GetUserDataState(userData: none());
 }
-

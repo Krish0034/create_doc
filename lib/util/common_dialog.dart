@@ -43,7 +43,7 @@ class CommonDialog
                     ),
                   ),
                   Gap(20.h),
-                  email!=null?Text(email??''):const SizedBox.shrink(),
+                  if (email!=null) Text(email??'') else const SizedBox.shrink(),
                   Text(
                     title??'',
                     style:CommonTextStyle.normalStyle.copyWith(

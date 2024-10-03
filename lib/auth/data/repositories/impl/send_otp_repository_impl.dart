@@ -1,6 +1,6 @@
 
-import 'package:create_doc/util/auth_type.dart';
-import 'package:create_doc/util/logger.dart';
+import '../../../../util/auth_type.dart';
+import '../../../../util/logger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import '../send_otp_repository.dart';

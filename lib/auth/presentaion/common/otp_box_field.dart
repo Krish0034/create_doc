@@ -8,7 +8,7 @@ import '../../../util/common_text_style.dart';
 class OtpBoxField extends StatefulWidget {
   final TextEditingController otpController;
   final void Function(String)? onCompleted;
-  const OtpBoxField({super.key, required this.otpController,this.onCompleted});
+  const OtpBoxField({required this.otpController, super.key,this.onCompleted});
 
   @override
   State<OtpBoxField> createState() => _OtpBoxFieldState();

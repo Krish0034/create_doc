@@ -1,11 +1,9 @@
-import 'package:create_doc/util/app_colors.dart';
-import 'package:create_doc/util/app_images.dart';
-import 'package:create_doc/util/connectivity/connection.dart';
-import 'package:create_doc/util/logger.dart';
-import 'package:create_doc/util/routing_string.dart';
-import 'package:create_doc/util/shered_preferences.dart';
+import 'util/app_colors.dart';
+import 'util/connectivity/connection.dart';
+import 'util/logger.dart';
+import 'util/routing_string.dart';
+import 'util/shered_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:giffy_dialog/giffy_dialog.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -94,7 +92,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
       color: AppColors.kGravishBlueColor,
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -102,13 +100,13 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
             child: Stack(
               alignment: Alignment.center,
               children: [
-                Transform.scale(
-                  scale: sizeAnimation.value,
-                  child:  GiffyDialog.image(
-                     Image.asset(AppImages.splash),
-                     elevation: 0,
-                  ),
-                ),
+                // Transform.scale(
+                //   scale: sizeAnimation.value,
+                //   child:  GiffyDialog.image(
+                //     Image(image:AppImages.splash),
+                //      elevation: 0,
+                //   ),
+                // ),
               ],
             ),
           )

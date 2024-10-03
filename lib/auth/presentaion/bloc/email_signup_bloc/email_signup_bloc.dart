@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:create_doc/auth/model/phone_auth_provider_model.dart';
-import 'package:create_doc/core/error_data.dart';
+import '../../../model/phone_auth_provider_model.dart';
+import '../../../../core/error_data.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,8 +26,7 @@ class EmailSignUpBloc extends Bloc<EmailSignUpEvent, EmailSignUpState> {
     });
   }
 
-  Future<dynamic> createUser(
-      Emitter<EmailSignUpState> emit, UserData userData, AuthType authType,PhoneAuthProviderModel? phoneAuthProviderModel) async {
+  Future<dynamic> createUser(Emitter<EmailSignUpState> emit, UserData userData, AuthType authType,PhoneAuthProviderModel? phoneAuthProviderModel) async {
     Logger.data("Create User Function in bloc ${userData.toJson()}");
     Logger.data("Create User Function in bloc 1 $authType");
     Logger.data("Create User Function in bloc 1 ${phoneAuthProviderModel?.toJson()}");

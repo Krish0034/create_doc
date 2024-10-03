@@ -1,5 +1,5 @@
-import 'package:create_doc/auth/data/repositories/user_name_repository.dart';
-import 'package:create_doc/util/logger.dart';
+import '../user_name_repository.dart';
+import '../../../../util/logger.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../util/api_urls.dart';
 import '../../../../util/auth_type.dart';
@@ -17,10 +17,10 @@ class UserNameRepositoryImpl extends UserNameRepository {
         .where("username", isEqualTo: userName)
         .get();
 
-    for (var docSnapshot in existUser.docs) {
-      UserData userData = UserData.fromJson(docSnapshot.data() as Map<String, dynamic>);
+    for (final docSnapshot in existUser.docs) {
+      final UserData userData = UserData.fromJson(docSnapshot.data()! as Map<String, dynamic>);
       Logger.data("user data are exist or not: ${userData.toJson()}");
-      if (userData.username.toString() == userName.toString()) {
+      if (userData.username.toString() == userName) {
         return userData;
       }
     }

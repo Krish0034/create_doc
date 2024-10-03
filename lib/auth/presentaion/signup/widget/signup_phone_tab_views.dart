@@ -116,7 +116,7 @@ class _SignUpPhoneTabViewState extends State<SignUpPhoneTabView> {
                   UserDetailsFields(
                     authType: AuthType.PHONE,
                     nameController: nameController,
-                    userNameController: userNameController,
+                    // userNameController: userNameController,
                   ),
                   Gap(20.h),
                   PhoneTextField(

@@ -13,4 +13,3 @@ class GoogleMapState with _$GoogleMapState
   factory GoogleMapState.initial() =>
       GoogleMapState(addressList: none(), userData: none());
 }
-

@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:create_doc/auth/data/repositories/send_otp_repository.dart';
+import '../../repositories/send_otp_repository.dart';
 import 'package:dio/dio.dart';
-import 'package:create_doc/auth/model/code_model_response.dart';
-import 'package:create_doc/core/error_data.dart';
-import 'package:create_doc/util/auth_type.dart';
+import '../../../model/code_model_response.dart';
+import '../../../../core/error_data.dart';
+import '../../../../util/auth_type.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
@@ -21,7 +21,7 @@ class SendOtpServicesImpl extends SendOtpServices
   @override
   Future<Either<ErrorData, CodeModelResponse>> sendOtp({required String phoneNumberWithCode, required AuthType authType}) async {
     try {
-      Completer<CodeModelResponse> completer = Completer<CodeModelResponse>();
+      final Completer<CodeModelResponse> completer = Completer<CodeModelResponse>();
       String? verificationFailed;
 
       await _sendOtpRepository.sendOtp(
@@ -62,10 +62,9 @@ class SendOtpServicesImpl extends SendOtpServices
       return Left(UtilFunction().handleDioError(exception));
     } catch (e) {
       Logger.data("Exception is: $e");
-      String? error = e.toString();
+      final String error = e.toString();
       return Left(ErrorData.httpUnknownError(error));
     }
   }
 
 }
-

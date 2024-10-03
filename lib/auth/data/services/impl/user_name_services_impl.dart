@@ -1,6 +1,6 @@
-import 'package:create_doc/auth/data/repositories/user_name_repository.dart';
-import 'package:create_doc/auth/data/services/user_name_services.dart';
-import 'package:create_doc/util/logger.dart';
+import '../../repositories/user_name_repository.dart';
+import '../user_name_services.dart';
+import '../../../../util/logger.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../../../core/error_data.dart';
@@ -20,7 +20,7 @@ class UserNameServicesImpl extends UserNameServices {
   {
     Logger.data("user services is: $userName");
     try {
-      UserData userData = await _userNameRepository.userExist(userName: userName, authType: authType);
+      final UserData userData = await _userNameRepository.userExist(userName: userName, authType: authType);
       if (userData.username != null) {
         Logger.data("user name is found in services method ${userData.toJson()}");
         return right(userData);

@@ -49,7 +49,7 @@ class SingInAccessServicesImpl extends SingInServices
       return Left(UtilFunction().handleDioError(exception));
     } catch (e) {
       Logger.data("Exception is: $e");
-      String? error = e.toString();
+      final String error = e.toString();
       return Left(ErrorData.httpUnknownError(error));
     }
   }

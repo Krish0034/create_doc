@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:create_doc/auth/presentaion/bloc/email_signup_bloc/email_signup_bloc.dart';
-import 'package:create_doc/auth/presentaion/signup/widget/user_details_fields.dart';
-import 'package:create_doc/util/common_dialog.dart';
-import 'package:create_doc/util/extences.dart';
-import 'package:create_doc/util/shered_preferences.dart';
-import 'package:create_doc/util/utility_function.dart';
+import '../../bloc/email_signup_bloc/email_signup_bloc.dart';
+import 'user_details_fields.dart';
+import '../../../../util/common_dialog.dart';
+import '../../../../util/extences.dart';
+import '../../../../util/shered_preferences.dart';
+import '../../../../util/utility_function.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,6 @@ import '../../../../util/app_colors.dart';
 import '../../../../util/app_strings.dart';
 import '../../../../util/auth_type.dart';
 import '../../../../util/common_button.dart';
-import '../../../../util/common_text_style.dart';
 import '../../../../util/logger.dart';
 import '../../../../util/validator_fields.dart';
 import '../../../model/user_data.dart';
@@ -129,8 +128,9 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
                     UserDetailsFields(
                       authType: AuthType.EMAIL,
                       nameController: nameController,
-                      userNameController: userNameController,
+                      // userNameController: userNameController,
                     ),
+
                     Gap(20.h),
                     EmailPasswordWidget(
                       emailController: emailController,
@@ -164,7 +164,8 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
                           Logger.data("token is $token");
                           fcmToken = token??'';
                         },);
-                        _signupBloc.add(EmailSignUpEvent.createUser(
+                        _signupBloc.add(
+                          EmailSignUpEvent.createUser(
                           userData: UserData(
                             fullName: nameController.text.toString(),
                             username: userNameController.text.toString(),
@@ -195,7 +196,7 @@ class _SignUpEmailTabViewsState extends State<SignUpEmailTabViews> {
                     height: 50,
                     borderColor: AppColors.backButtonColor.withOpacity(0.5),
                     btnColor: AppColors.redButtonColor,
-                    textStyle: CommonTextStyle.normalStyle.copyWith(color: AppColors.whiteColor),
+                    // textStyle: CommonTextStyle.normalStyle.copyWith(color: AppColors.whiteColor),
                     text: AppString.continueText,
                   ),
                 ),

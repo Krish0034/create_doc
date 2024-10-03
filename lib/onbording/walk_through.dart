@@ -259,8 +259,7 @@ class _WalkthroughState extends State<Walkthrough> {
                               textStyle: CommonTextStyle.normalStyle.copyWith(
                                 color: AppColors.whiteColor,
                               ),
-                              borderColor:
-                                  AppColors.backButtonColor.withOpacity(0.5),
+                              borderColor: AppColors.backButtonColor.withOpacity(0.5),
                               btnColor: AppColors.redButtonColor,
                             ),
                           ),

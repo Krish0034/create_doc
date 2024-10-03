@@ -30,7 +30,7 @@ class SignUpRepositoryImpl extends SignUpRepository {
           .get()
           .then((value) {
         if (value.data() != null) {
-          userResponseData = UserData.fromJson(value.data() as Map<String, dynamic>);
+          userResponseData = UserData.fromJson(value.data()! as Map<String, dynamic>);
         } else {
           Logger.data("Get Response Data is: ${value.data()}");
         }

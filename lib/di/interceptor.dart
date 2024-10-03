@@ -47,12 +47,12 @@ class AppInterceptors extends Interceptor {
   }
 
   @override
-  FutureOr<dynamic> onError(DioError dioError, _) {
-    return dioError;
+  FutureOr<dynamic> onError(DioError err, _) {
+    return err;
   }
 
   @override
-  FutureOr<dynamic> onResponse(Response options, _) async {
-    return options;
+  FutureOr<dynamic> onResponse(Response response, _) async {
+    return response;
   }
 }

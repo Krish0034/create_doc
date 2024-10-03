@@ -1,7 +1,7 @@
-import 'package:create_doc/auth/model/address_model.dart';
-import 'package:create_doc/auth/model/user_data.dart';
-import 'package:create_doc/baseResponse/base_response.dart';
-import 'package:create_doc/core/error_data.dart';
+import '../model/address_model.dart';
+import '../model/user_data.dart';
+import '../../baseResponse/base_response.dart';
+import '../../core/error_data.dart';
 import 'package:dartz/dartz.dart';
 
 

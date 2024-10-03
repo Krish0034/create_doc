@@ -4,8 +4,7 @@ part of 'user_name_bloc.dart';
 class UserNameState with _$UserNameState
 {
   factory UserNameState({
-    @Default(false) bool userName,
-    required Option<UserData> userData,
+    required Option<UserData> userData, @Default(false) bool userName,
   }) = _UserNameState;
 
   factory UserNameState.initial() =>

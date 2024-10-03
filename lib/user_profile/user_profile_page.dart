@@ -1,9 +1,7 @@
-import 'package:create_doc/setting/settings.dart';
-import 'package:create_doc/util/common_icon_button.dart';
+import '../setting/settings.dart';
+import '../util/common_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../util/app_colors.dart';
 import '../util/app_images.dart';
 
 class UserProfilePage extends StatefulWidget {

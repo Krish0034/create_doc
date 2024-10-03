@@ -1,6 +1,5 @@
-import 'dart:async';
 
-import 'package:create_doc/util/logger.dart';
+import 'logger.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';

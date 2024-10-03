@@ -1,7 +1,7 @@
 
-import 'package:create_doc/auth/model/user_data.dart';
-import 'package:create_doc/core/error_data.dart';
-import 'package:create_doc/util/auth_type.dart';
+import '../../model/user_data.dart';
+import '../../../core/error_data.dart';
+import '../../../util/auth_type.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import '../../data/services/get_user_data_services.dart';
@@ -16,7 +16,7 @@ class GetUserDataAccessServicesImpl extends GetUserDataAccessServices
 
   @override
   Future<Either<ErrorData, UserData>> getUserDataByPhone({required String phoneNumber, required AuthType authType,PhoneAuthProviderModel? phoneAuthProviderModel}) async {
-    return await _getUserDataServices.getUserDataByPhone(phoneNumber: phoneNumber, authType: authType);
+    return _getUserDataServices.getUserDataByPhone(phoneNumber: phoneNumber, authType: authType);
   }
   
 }

@@ -1,7 +1,7 @@
 
 import 'package:bloc/bloc.dart';
-import 'package:create_doc/auth/model/address_model.dart';
-import 'package:create_doc/util/logger.dart';
+import '../../../model/address_model.dart';
+import '../../../../util/logger.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';

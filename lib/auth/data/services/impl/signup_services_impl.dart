@@ -1,5 +1,5 @@
-import 'package:create_doc/util/shered_preferences.dart';
-import 'package:create_doc/util/utility_function.dart';
+import '../../../../util/shered_preferences.dart';
+import '../../../../util/utility_function.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -32,7 +32,7 @@ class SignUpServicesImpl extends SignUpServices {
           email: userData.email ?? '',
           password: userData.password ?? '',
         ).then((value) async {
-            Logger.data("createUserWithEmailAndPassword is ${value.toString()}");
+            Logger.data("createUserWithEmailAndPassword is $value");
             final user = value.user;
             if (user != null) {
               Logger.data("after checking data is user: $user");
@@ -51,9 +51,9 @@ class SignUpServicesImpl extends SignUpServices {
       {
         Logger.data("phone auth credential in services ${phoneAuthProviderModel?.codeModelResponse?.verificationId??''}");
         Logger.data("phone auth credential in services sms code ${phoneAuthProviderModel?.otpCode??""}");
-        PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: phoneAuthProviderModel?.codeModelResponse?.verificationId??'', smsCode: phoneAuthProviderModel?.otpCode??"");
+        final PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: phoneAuthProviderModel?.codeModelResponse?.verificationId??'', smsCode: phoneAuthProviderModel?.otpCode??"");
         await _authInstances.signInWithCredential(credential).then((value)async {
-          Logger.data("createUserWithPhoneNumber is ${value.toString()}");
+          Logger.data("createUserWithPhoneNumber is $value");
           final user = value.user;
           if (user != null) {
             Logger.data("after checking data is user: $user");
@@ -77,7 +77,7 @@ class SignUpServicesImpl extends SignUpServices {
       return left(UtilFunction().handleDioError(exception));
     } catch (e) {
       Logger.data("Exception is: $e");
-      String? error=e.toString();
+      final String error=e.toString();
       return left(ErrorData.httpUnknownError(error));
     }
   }

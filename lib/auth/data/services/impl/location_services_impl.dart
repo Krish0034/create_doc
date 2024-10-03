@@ -1,8 +1,8 @@
 
 import 'dart:io';
 
-import 'package:create_doc/auth/data/repositories/impl/location_repository_impl.dart';
-import 'package:create_doc/util/logger.dart';
+import '../../repositories/impl/location_repository_impl.dart';
+import '../../../../util/logger.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
@@ -30,10 +30,9 @@ class LocationServicesImpl extends LocationServices
     else
     {apiKey="AIzaSyBn1Tdx2w3-Bogj3Vm2iTnG8eufJsINqXY";}
     Logger.data("In LocationServices searchLocation apiKey is: $apiKey");
-    Map<String,dynamic> response= await _locationRepositoryImpl.searchLocation(searchQuery, apiKey, "1234");
+    final Map<String,dynamic> response= await _locationRepositoryImpl.searchLocation(searchQuery, apiKey, "1234");
     if (response['status'] == "OK") {
       baseResponse?.data = response['predictions'];
-      Logger.data("Result of search location is:  ${baseResponse?.data?.length}");
     }
     return right(baseResponse??BaseResponse());
   }

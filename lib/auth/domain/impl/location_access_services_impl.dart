@@ -1,8 +1,8 @@
 
-import 'package:create_doc/auth/data/services/location_services.dart';
-import 'package:create_doc/auth/model/address_model.dart';
-import 'package:create_doc/auth/model/user_data.dart';
-import 'package:create_doc/core/error_data.dart';
+import '../../data/services/location_services.dart';
+import '../../model/address_model.dart';
+import '../../model/user_data.dart';
+import '../../../core/error_data.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 
@@ -18,12 +18,12 @@ class LocationAccessServicesImpl extends LocationAccessServices
   @override
   Future<Either<ErrorData, BaseResponse>> searchLocation({required String searchQuery}) async{
     Logger.data("In LocationAccessServices searchLocation searchQuery is: $searchQuery");
-    return await _locationServices.searchLocation(searchQuery: searchQuery);
+    return _locationServices.searchLocation(searchQuery: searchQuery);
   }
 
   @override
   Future<Either<ErrorData, UserData>> saveLocation({required AddressModel addressModel}) async{
-    return await _locationServices.saveLocation(addressModel: addressModel);
+    return _locationServices.saveLocation(addressModel: addressModel);
   }
   
 }

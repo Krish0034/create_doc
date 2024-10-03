@@ -1,5 +1,5 @@
 
-import 'package:create_doc/auth/model/code_model_response.dart';
+import 'code_model_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'phone_auth_provider_model.g.dart';

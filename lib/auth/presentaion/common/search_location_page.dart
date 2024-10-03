@@ -77,7 +77,7 @@ class _SearchLocationPageState extends State<SearchLocationPage> {
                   bloc: _googleMapBloc,
                   builder: (context, state) {
                     Logger.data("Search Location page in before state field");
-                    if (state is GoogleMapState && state.addressList.isSome()) {
+                    if (state.addressList.isSome()) {
                       return state.addressList.fold(
                             () => const SizedBox(),
                             (addressData) {

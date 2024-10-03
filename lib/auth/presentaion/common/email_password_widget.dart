@@ -13,7 +13,7 @@ import '../../../util/validator_fields.dart';
 class EmailPasswordWidget extends StatefulWidget {
   final TextEditingController emailController ;
   final TextEditingController passwordController;
-  const EmailPasswordWidget({super.key,required this.emailController,required this.passwordController,});
+  const EmailPasswordWidget({required this.emailController, required this.passwordController, super.key,});
 
   @override
   State<EmailPasswordWidget> createState() => _EmailPasswordWidgetState();
@@ -95,7 +95,7 @@ class _EmailPasswordWidgetState extends State<EmailPasswordWidget> {
               setState(() {
                 strengthPasswordVisibility = false;
               });
-              return strengthPasswordVisibility??'';
+              return strengthPasswordVisibility;
             } else {
               setState(() {
                 strengthPasswordVisibility = true;
@@ -144,9 +144,9 @@ class _EmailPasswordWidgetState extends State<EmailPasswordWidget> {
   }
 
   Future<void> checkPasswordValue(String password) async {
-    RegExp numReg = RegExp(r".*[0-9].*");
-    RegExp letterReg = RegExp(r".*[A-Z].*");
-    RegExp specialReg = RegExp(r'\W');
+    final RegExp numReg = RegExp(r".*[0-9].*");
+    final RegExp letterReg = RegExp(r".*[A-Z].*");
+    final RegExp specialReg = RegExp(r'\W');
 
     if (password.isEmpty) {
       passwordStrengthLength = 0;

@@ -1,5 +1,4 @@
 
-import 'package:flutter/cupertino.dart';
 
 class ValidatorFields {
   static final RegExp REGEX_EMOJI = RegExp(

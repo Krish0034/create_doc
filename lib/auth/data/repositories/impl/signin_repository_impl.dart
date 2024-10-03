@@ -1,6 +1,5 @@
 
-import 'package:create_doc/auth/model/user_data.dart';
-import 'package:create_doc/util/auth_type.dart';
+import '../../../model/user_data.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../util/api_urls.dart';
@@ -22,7 +21,7 @@ class SignInRepositoryImpl extends SignInRepository
       if(userData.exists)
       {
         Logger.data("userData exist ${userData.data()}");
-        userResponseData=UserData.fromJson(userData.data() as Map<String,dynamic>);
+        userResponseData=UserData.fromJson(userData.data()! as Map<String,dynamic>);
         Logger.data("userData exist ${userResponseData.toJson()}");
       }
       else

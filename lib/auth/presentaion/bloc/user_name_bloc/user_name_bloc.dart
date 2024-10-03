@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:create_doc/auth/model/user_data.dart';
-import 'package:create_doc/core/error_data.dart';
-import 'package:create_doc/util/logger.dart';
+import '../../../model/user_data.dart';
+import '../../../../core/error_data.dart';
+import '../../../../util/logger.dart';
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
